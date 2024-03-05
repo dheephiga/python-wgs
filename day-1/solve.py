@@ -3,11 +3,8 @@ print(
 )
 
 #other way
-x = 1/2
-y = 1/3
-z= 1
-u = 0
+numerator = (1/2) * (1/3)
+denominator = ((1/2)*(1/3)) + 1*(1/3) + 0*(1/3)
 
-print(
-    ((x*y)/)
-)
+result = numerator / denominator
+print(result)
