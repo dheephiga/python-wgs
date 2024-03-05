@@ -3,4 +3,4 @@ def hello():
 
 #to see how the disassembler works inside python
 import dis
-dis.dis(hello)
+dis(hello)
