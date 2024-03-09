@@ -1,4 +1,6 @@
 import avg
+#restricting usage of functions
+from avg import avg_3
 x = int(input())
 y = int(input())
 z = int(input())
