@@ -6,16 +6,28 @@ def book_add():
     if title in book_inventory:
         print('Book already exists, incrementing the value..')
         book_inventory[title]['Quantity'] +=1
-        print(f'book {title} added successfully')
+        print(f'Book {title} added successfully')
+        
+        ch = int(input("Press 3 to display inventory\n 0 to exit"))
+        if ch:
+            view_inventory()
+        else:
+            exit()
+            
         
     else:
         author = input("author: ")
-        genre = input("\ngenre: ")
-        qty = input("\nquantity: ")
-        price = input("\nprice: ")
+        genre = input("genre: ")
+        qty = int(input("quantity: "))
+        price = int(input("price: "))
     book_inventory.update({title: {'Author': author, 'Genre': genre, 'Quantity': qty, 'Price': price}})
-    print(f'book {title} added successfully')
-    return 0;
+    print(f'Book {title} added successfully')
+    
+    ch = int(input("Press 3 to display inventory\n 0 to exit"))
+    if ch:
+        view_inventory()
+    else:
+        exit()
 
 
 def book_sell():
@@ -43,6 +55,12 @@ def book_sell():
                 print('Quantity to be sold is lesser than available units, Please try again!')
     else:
         print(f'{title} not found, please ensure you typed the title correctly')
+    
+    ch = int(input("Press 3 to display inventory\n 0 to exit"))
+    if ch:
+        view_inventory()
+    else:
+        exit()  
 
 
 def view_inventory():
