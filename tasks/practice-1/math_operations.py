@@ -5,21 +5,21 @@ these functions.'''
 
 def addition(a,b):
     if(a.isdigit() and b.isdigit()):
-        print(a+b)
+        return (int(a) + int(b))
     
     else:
         print("Invalid input")
 
 def subtraction(a,b):
     if(a.isdigit() and b.isdigit()):
-        print(a-b)
+       return (int(a) - int(b))
     
     else:
         print("Invalid input")
 
 def multiplication(a,b):
     if(a.isdigit() and b.isdigit()):
-        print(a*b)
+        return (int(a) * int(b))
     
     else:
         print("Invalid input")
@@ -27,9 +27,7 @@ def multiplication(a,b):
 def division(a,b):
     if(a.isdigit() and b.isdigit()):
         if(a!=0 and b!=0):
-            print(a/b)
+           return (int(a) / int(b))
     
     else:
         print("Invalid input")
-
-
