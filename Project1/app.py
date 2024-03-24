@@ -33,8 +33,11 @@ def upload():
     else:
         return render_template('home.html')
 
+
 @app.route('/clean')
 def clean():
     return render_template('clean.html')
+
+
 if __name__ == '__main__':
     app.run()
