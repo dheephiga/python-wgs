@@ -9,9 +9,19 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-  
+    <br />
+    <h1 class="text-center fs-2 fw-semibold">Data Analyser</h1>
     <ul class="nav nav-underline">
       <li class="nav-item">
         <a class="nav-link active" aria-current="page" href="#">Home</a>
@@ -23,20 +33,62 @@
         <a class="nav-link" href="#">Visualize</a>
       </li>
     </ul>
-    <br>
+    <br />
     <div class="container text-center">
       <div class="row">
         <div class="col-sm-5 col-md-6">
           <div class="mb-3">
-              <form>
-            <input class="form-control" type="file" id="formFile" />
-                  <br>
-              <button class="btn btn-primary btn-sm" type="submit" value="Submit">Submit</button>
-              <button type="reset" value="Reset" class="btn btn-secondary btn-sm">Reset</button>
-                  </form>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+              <input class="form-control" type="file" name="file" id="file">
+              <br />
+              <button
+                class="btn btn-primary btn-sm"
+                type="submit"
+                value="Submit"
+              >
+                Submit
+              </button>
+              <button
+                type="reset"
+                value="Reset"
+                class="btn btn-secondary btn-sm"
+              >
+                Reset
+              </button>
+            </form>
           </div>
         </div>
-        <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">file view</div>
+        <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">
+          <h3>Uploaded file</h3>
+           <table>
+        <thead>
+
+          <tr>
+            {% for col in column_names %}
+            <th>
+
+              {{col}}
+
+            </th>
+            {% endfor %}
+          </tr>
+
+        </thead>
+        <tbody>
+          {% for row in row_data %}
+          <tr>
+            {% for col, row_ in zip(column_names, row) %}
+            <td>{{row_}}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+
+
+        </tbody>
+
+      </table>
+
+        </div>
       </div>
     </div>
 
