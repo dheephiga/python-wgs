@@ -39,5 +39,10 @@ def clean():
     return render_template('clean.html')
 
 
+@app.route('/visualize')
+def visualize():
+    return render_template('visualize.html')
+
+
 if __name__ == '__main__':
     app.run()
