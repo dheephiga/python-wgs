@@ -42,13 +42,13 @@ def clean():
 @app.route('/isna')
 def isna():
     global df
-    if 'df' in globals() and df is not None:
-        if df.isna().any().any():
-            return '<script>alert("NaN values exist."); window.history.back();</script>'
-        else:
-            return 'False'
+    if 'df' is not None:
+        na_rows = df[df.isna().any(axis=1)].to_html()  
+        na_columns = df.columns[df.isna().any()].tolist()
+        return render_template('na_info.html',na_rows=na_rows,na_columns=na_columns)
+            
     else:
-        return 'DataFrame is not available'
+        return '<script>alert("DataFrame is not available);window.history.back();</script>'
 
 @app.route('/visualize')
 def visualize():
