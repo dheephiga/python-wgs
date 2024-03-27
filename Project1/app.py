@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import pandas as pd
 
 app = Flask(__name__)
-
+df = None
 
 @app.route('/')
 @app.route('/home')
@@ -12,6 +12,7 @@ def home():
 
 @app.route('/upload', methods=['POST', 'GET'])
 def upload():
+    global df   
     if request.method == 'POST':
         file = request.files['file']
 
@@ -21,7 +22,6 @@ def upload():
         try:
             df = pd.read_csv(file)
             if not df.empty:
-                # Pass column names and row data to the template
                 df_head = df.head()
                 column_names = df_head.columns.values
                 row_data = list(df_head.values.tolist())
@@ -36,8 +36,19 @@ def upload():
 
 @app.route('/clean')
 def clean():
+    global df
     return render_template('clean.html')
 
+@app.route('/isna')
+def isna():
+    global df
+    if 'df' in globals() and df is not None:
+        if df.isna().any().any():
+            return 'True'
+        else:
+            return 'False'
+    else:
+        return 'DataFrame is not available'
 
 @app.route('/visualize')
 def visualize():
@@ -45,4 +56,4 @@ def visualize():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
