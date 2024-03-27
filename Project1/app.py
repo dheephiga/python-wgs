@@ -4,6 +4,7 @@ import pandas as pd
 app = Flask(__name__)
 df = None
 
+
 @app.route('/')
 @app.route('/home')
 def home():
@@ -12,7 +13,7 @@ def home():
 
 @app.route('/upload', methods=['POST', 'GET'])
 def upload():
-    global df   
+    global df
     if request.method == 'POST':
         file = request.files['file']
 
@@ -39,16 +40,25 @@ def clean():
     # global df
     return render_template('clean.html')
 
-@app.route('/isna')
-def isna():
+
+@app.route('/isnan')
+def isnan():
     global df
     if 'df' is not None:
-        na_rows = df[df.isna().any(axis=1)].to_html()  
+        na_rows = df[df.isna().any(axis=1)].to_html()
         na_columns = df.columns[df.isna().any()].tolist()
-        return render_template('na_info.html',na_rows=na_rows,na_columns=na_columns)
-            
+        return render_template('na_info.html', na_rows=na_rows, na_columns=na_columns)
+
     else:
         return '<script>alert("DataFrame is not available);window.history.back();</script>'
+
+
+@app.route('/drop')
+def drop():
+    global df
+    
+
+
 
 @app.route('/visualize')
 def visualize():
