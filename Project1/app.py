@@ -44,7 +44,7 @@ def isna():
     global df
     if 'df' in globals() and df is not None:
         if df.isna().any().any():
-            return 'True'
+            return '<script>alert("NaN values exist."); window.history.back();</script>'
         else:
             return 'False'
     else:
