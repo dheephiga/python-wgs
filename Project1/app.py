@@ -36,7 +36,7 @@ def upload():
 
 @app.route('/clean')
 def clean():
-    global df
+    # global df
     return render_template('clean.html')
 
 @app.route('/isna')

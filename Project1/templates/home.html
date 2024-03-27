@@ -22,15 +22,7 @@
   <body>
     <br />
     <h1 class="text-center fs-2 fw-semibold">Data Analyser</h1>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-          <a class="nav-link" href="{{ url_for('clean') }}">Clean</a>
-          <a class="nav-link" href="{{ url_for('visualize') }}">Visualize</a>
-        </div>
-      </div>
-    </nav>
+    {%include 'navbar.html' %}
     <br />
     <div class="container text-center">
       <div class="row">
