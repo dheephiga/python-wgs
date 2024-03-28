@@ -37,8 +37,13 @@ def upload():
 
 @app.route('/clean')
 def clean():
-    # global df
-    return render_template('clean.html')
+    global df
+    if df is not None:
+        columns = df.columns.tolist()
+        return render_template('clean.html', columns=columns)
+    else:
+        return '<script>alert("DataFrame is not available");window.history.back();</script>'
+    # return render_template('clean.html')
 
 
 @app.route('/isnan')
@@ -53,10 +58,23 @@ def isnan():
         return '<script>alert("DataFrame is not available);window.history.back();</script>'
 
 
-@app.route('/drop')
+@app.route('/drop',methods=['GET', 'POST'])
 def drop():
     global df
-    
+    if request.method == 'POST':
+        selected_columns = request.form.getlist('selectedColumns')
+        if not selected_columns:
+            return 'No columns selected'
+        
+        if df is not None:
+            df.drop(columns=selected_columns, inplace=True)
+            # Optionally, you can redirect to another page or render a template
+            return '<script>alert("Columns dropped successfully");window.history.back();</script>'
+        else:
+            return '<script>alert("DataFrame is not available");window.history.back();</script>'
+    else:
+        # GET method for accessing the route, if needed
+        return 'Method Not Allowed'
 
 
 
