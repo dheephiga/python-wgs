@@ -68,12 +68,11 @@ def drop():
         
         if df is not None:
             df.drop(columns=selected_columns, inplace=True)
-            # Optionally, you can redirect to another page or render a template
-            return '<script>alert("Columns dropped successfully");window.history.back();</script>'
+            new_df_head = df.head().to_html()
+            return render_template('new_df.html', new_df_head=new_df_head)
         else:
             return '<script>alert("DataFrame is not available");window.history.back();</script>'
     else:
-        # GET method for accessing the route, if needed
         return 'Method Not Allowed'
 
 
