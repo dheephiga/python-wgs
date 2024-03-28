@@ -50,7 +50,9 @@ def clean():
 def isnan():
     global df
     if 'df' is not None:
+        
         na_rows = df[df.isna().any(axis=1)].to_html()
+        
         na_columns = df.columns[df.isna().any()].tolist()
         return render_template('na_info.html', na_rows=na_rows, na_columns=na_columns)
 
