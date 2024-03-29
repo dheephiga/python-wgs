@@ -79,7 +79,8 @@ def drop():
 
 @app.route('/rename')
 def rename():
-    pass    
+    
+    
 
 @app.route('/visualize')
 def visualize():
