@@ -66,7 +66,7 @@ def drop():
     if request.method == 'POST':
         selected_columns = request.form.getlist('selectedColumns')
         if not selected_columns:
-            return 'No columns selected'
+            return '<script>alert("No columns selected");window.history.back();</script>'
         
         if df is not None:
             df.drop(columns=selected_columns, inplace=True)
@@ -75,11 +75,26 @@ def drop():
         else:
             return '<script>alert("DataFrame is not available");window.history.back();</script>'
     else:
-        return 'Method Not Allowed'
+        return '<script>alert("Method not allowed");window.history.back();</script>'
 
-@app.route('/rename')
+@app.route('/rename',methods=['GET', 'POST'])
 def rename():
+    global df
+    new_column_names = {}
+    for index, column in enumerate(df.columns):
+        new_name = request.form.get(f'renameColumn{index+1}')
+        original_name = request.form.get(f'original_column_{index+1}')
+        if new_name and new_name != original_name:
+            new_column_names[original_name] = new_name
     
+    if new_column_names:
+        df.rename(columns=new_column_names, inplace=True)
+        rename_df = df.head().to_html()
+        return render_template('new_df.html', new_df_head=rename_df)
+        # return 'Columns renamed successfully'
+    else:
+        return '<script>alert("No columns renamed");window.history.back();</script>'
+
     
 
 @app.route('/visualize')
