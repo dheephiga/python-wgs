@@ -96,7 +96,24 @@ def rename():
         return '<script>alert("No columns renamed");window.history.back();</script>'
 
     
-
+@app.route('/reset_index',methods=['POST'])
+def reset_index():
+    global df
+    new_index_name = request.form.get("newIndex")
+    # newdf = df.reset_index(new_index_name,drop=False, inplace=True)
+    newdf = df.set_index(new_index_name, inplace=True)
+    newdf = df.head().to_html()
+    
+    return render_template('new_df.html', new_df_head=newdf)
+    
+    # return 'Index reset successfully'
+    
+@app.route('/sort',methods=['GET','POST'])
+def sortdf():
+    global df
+    colName = request.form.get(sortCol)
+    boolValue = request.form.get(sortOrder)
+    sort_df = df.sort_values(by=colName,ascending=boolValue)
 @app.route('/visualize')
 def visualize():
     return render_template('visualize.html')

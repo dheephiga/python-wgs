@@ -30,8 +30,6 @@
       </button>
     </div>
   </div>
-
-
   <div class="modal fade" id="dropColumnsModal" tabindex="-1" aria-labelledby="dropColumnsModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
@@ -70,6 +68,7 @@
         Rename
       </button>
     </div>
+
     <div class="modal fade" id="renameModal" aria-labelledby="renameColsModal" aria-hidden="true">
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -78,48 +77,75 @@
               Rename column in DataFrame
             </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            <div class="modal-body">
-              <form id="renameColsForm" action="{{ url_for('rename') }}" method="post">
-                {% for column in columns %}
-                <div class="row row-cols-lg-auto g-3 align-items-center">
-                  <div class="col-12">
-                    <label class="visually-hidden" for="columnRenameInput{{ loop.index }}">Rename "{{ column }}" to:</label>
-                    <div class="input-group">
-                      <div class="input-group-text">Renamed as</div>
-                      <input type="text" class="form-control" id="columnRenameInput{{ loop.index }}" name="renameColumn{{ loop.index }}" placeholder="Enter new name">
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <label class="visually-hidden" for="columnSelect{{ loop.index }}">Choose original column:</label>
-                    <select class="form-select" id="columnSelect{{ loop.index }}" name="original_column_{{ loop.index }}">
-                      <option value="{{ column }}">{{ column }}</option>
-                    </select>
+          </div>
+          <div class="modal-body">
+            <form id="renameColsForm" action="{{ url_for('rename') }}" method="post">
+              <div class="row row-cols-lg-auto g-3 align-items-center">
+                <div class="col-12">
+                  <label class="visually-hidden" for="columnRenameInput">Rename selected column to:</label>
+                  <div class="input-group">
+                    <div class="input-group-text">Renamed as</div>
+                    <input type="text" class="form-control" id="columnRenameInput" name="new_column_name"
+                      placeholder="Enter new name">
                   </div>
                 </div>
-                {% endfor %}
-                <div class="text-center mt-3">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="col-12">
+                  <label class="visually-hidden" for="columnSelect">Choose original column:</label>
+                  <select name="original_column" id="newIndex" class="form-select">
+                    {% for col in columns %}
+                    <option value="{{ col }}">{{ col }}</option>
+                    {% endfor %}
+                  </select>
                 </div>
-              </form>
-            </div>
-            
+              </div>
+              <div class="text-center mt-3">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
     <div class="col-sm-6 d-flex justify-content-center">
-      <button type="reset" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#resetIndexModal">
+      <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#resetIndexModal">
         Reset Index
       </button>
     </div>
   </div>
-  
+  <div class="modal fade" id="resetIndexModal" aria-labelledby="resetIndexModal" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="resetIndexLabel">
+            Reset Index in DataFrame
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="resetIndexForm" action="{{ url_for('reset_index') }}" method="post">
+            <div class="row row-cols-lg-auto g-3 align-items-center">
+              <div class="col-12">
+                <label class="visually-hidden" for="columnSelect">Choose original column:</label>
+                <select name="newIndex" class="form-select">
+                  {% for col in columns %}
+                  <option value="{{ col }}">{{ col }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="text-center mt-3">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+
 
 
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
-
 </html>
