@@ -51,7 +51,7 @@ def isnan():
     global df
     if 'df' is not None:
         
-        na_rows = df[df.isna().any(axis=1)].to_html()
+        na_rows = df[df.isna().any(axis=1)].to_html(classes='table table-stripped')
         
         na_columns = df.columns[df.isna().any()].tolist()
         return render_template('na_info.html', na_rows=na_rows, na_columns=na_columns)
@@ -70,7 +70,7 @@ def drop():
         
         if df is not None:
             df.drop(columns=selected_columns, inplace=True)
-            new_df_head = df.head().to_html()
+            new_df_head = df.head().to_html(classes='table table-stripped')
             return render_template('new_df.html', new_df_head=new_df_head)
         else:
             return '<script>alert("DataFrame is not available");window.history.back();</script>'
@@ -89,7 +89,7 @@ def rename():
     
     if new_column_names:
         df.rename(columns=new_column_names, inplace=True)
-        rename_df = df.head().to_html()
+        rename_df = df.head().to_html(classes='table table-stripped')
         return render_template('new_df.html', new_df_head=rename_df)
         # return 'Columns renamed successfully'
     else:
@@ -102,7 +102,7 @@ def reset_index():
     new_index_name = request.form.get("newIndex")
     # newdf = df.reset_index(new_index_name,drop=False, inplace=True)
     newdf = df.set_index(new_index_name, inplace=True)
-    newdf = df.head().to_html()
+    newdf = df.head().to_html(classes='table table-stripped')
     
     return render_template('new_df.html', new_df_head=newdf)
     
@@ -111,9 +111,19 @@ def reset_index():
 @app.route('/sort',methods=['GET','POST'])
 def sortdf():
     global df
-    colName = request.form.get(sortCol)
-    boolValue = request.form.get(sortOrder)
+    colName = request.form.get("sortCol")
+    boolValue = request.form.get("sortOrder")
+    if boolValue=="ascending":
+        boolValue = True
+    else:
+        boolValue = False
+        
     sort_df = df.sort_values(by=colName,ascending=boolValue)
+    sort_df = df.to_html(classes='table table-stripped')
+
+    return render_template('new_df.html', new_df_head=sort_df)
+    
+    
 @app.route('/visualize')
 def visualize():
     return render_template('visualize.html')
