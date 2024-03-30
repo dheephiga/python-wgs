@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 import pandas as pd
 
 app = Flask(__name__)
@@ -22,6 +22,7 @@ def upload():
 
         try:
             df = pd.read_csv(file)
+            session['df'] = df
             if not df.empty:
                 df_head = df.head()
                 column_names = df_head.columns.values
@@ -125,7 +126,15 @@ def sortdf():
 
 @app.route('/info')
 def info():
-    return render_template("df_info.html")
+    global df  # Assuming df is your DataFrame
+    df = session.get(df)
+    # Get info and describe summary
+    info_summary = df.info(verbose=True, buf=None, max_cols=None, memory_usage=True)
+    describe_summary = df.describe().to_html(classes='table table-stripped')
+
+    # Pass the summary to the template
+    return render_template('df_info.html', info_summary=info_summary, describe_summary=describe_summary)
+    # return render_template("df_info.html")
     
         
 @app.route('/visualize')
