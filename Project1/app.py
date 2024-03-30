@@ -122,8 +122,12 @@ def sortdf():
     sort_df = df.to_html(classes='table table-stripped')
 
     return render_template('new_df.html', new_df_head=sort_df)
+
+@app.route('/info')
+def info():
+    return render_template("df_info.html")
     
-    
+        
 @app.route('/visualize')
 def visualize():
     return render_template('visualize.html')
