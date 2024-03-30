@@ -1,11 +1,12 @@
-Name,Age,City
-A,23,Santa Clara
-B,42,Santa Clara
-C,33,Boston
-D,52,Los Angeles
-E,25,Boston
-F,30,Chicago
-G,35,Boston
-H,29,Ohio
-I,25,Brooklyn
-J,38,Brooklyn
+Name,Age,City,,,,,
+A,23,Santa Clara,,,,,
+B,42,Santa Clara,,,,,
+C,33,Boston,,data.csv,,,
+D,52,Los Angeles,,,,,
+E,25,Boston,,,,,
+F,30,Chicago,,,,,
+G,35,Boston,,,,,
+H,29,Ohio,,,,,
+I,25,Brooklyn,,,,,
+J,38,Brooklyn,,,,,
+,,,,,,,

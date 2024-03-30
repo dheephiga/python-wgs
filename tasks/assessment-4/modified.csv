@@ -1,12 +1,17 @@
-,Full Name,Age,Location,Salary,Years of Experience
-0,A,23,Santa Clara,70000,2
-1,B,42,Santa Clara,50000,5
-2,C,33,Boston,60000,7
-3,D,52,Los Angeles,70000,8
-4,E,25,Boston,80000,9
-5,F,30,Chicago,50000,3
-6,G,35,Boston,60000,10
-7,H,29,Ohio,70000,6
-8,I,25,Brooklyn,70000,5
-9,J,38,Brooklyn,50000,1
-10,K,32,Santa Clara,60000,2
+,Full Name,Age,Location,Salary,Years of Experience,
+0,A,23,Santa Clara,70000,2,
+1,B,42,Santa Clara,50000,5,
+2,C,33,Boston,60000,7,
+3,D,52,Los Angeles,70000,8,
+4,E,25,Boston,80000,9,
+5,F,30,Chicago,50000,3,
+6,G,35,Boston,60000,10,
+7,H,29,Ohio,70000,6,
+8,I,25,Brooklyn,70000,5,
+9,J,38,Brooklyn,50000,1,
+10,K,32,Santa Clara,60000,2,
+,,,,,,
+,,,,,,
+,,,modified_data.csv,,,
+,,,,,,
+,,,,,,
