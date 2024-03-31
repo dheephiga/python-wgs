@@ -156,11 +156,55 @@ def save():
         return '<script>alert("Error downloading CSV file");window.history.back();</script>'
      
 @app.route('/visualize')
-def visualize(color='red'):
-    sns.set_theme(style="darkgrid")
+def visualize():
+    global df
+    plots = ["Scatter Plot",
+    "Line Plot",
+    "Bar Plot",
+    "Histogram",
+    "Box Plot",
+    "Violin Plot"]
+    columns = df.columns.tolist()
+    if df is not None:
+        return render_template('visualize.html',plots=plots,columns=columns)
+    else:
+        return '<script>alert("DataFrame is not available");window.history.back();</script>'
     
+
+@app.route('/view',methods=['GET','POST'])
+def view():
+    global df
+    plottitle = request.form.get("plotTitle")
+    plotType = request.form.get("plotType")
+    xcol= request.form.get("xcol")
+    xlabel = request.form.get("xlabel")
+    ycol = request.form.get("ycol")
+    ylabel = request.form.get("ylabel")
     
-    ax = sns.barplot(x="day", y="total_bill", data=df)
+    sns.set_theme(style="darkgrid")   
+    
+    if plotType == "Scatter Plot":
+        ax = sns.scatterplot(x=xcol, y=ycol, data=df)
+    
+    elif plotType == "Line Plot":
+        ax = sns.lineplot(x=xcol, y=ycol, data=df)
+    
+    elif plotType == "Bar Plot":
+        ax = sns.barplotplot(x=xcol, y=ycol, data=df)
+    
+    elif plotType == "Histogram":
+        ax = sns.histplot(data=df, x=xcol, kde=True)
+    
+    elif plotType == "Box Plot":
+        ax = sns.boxplot(x=xcol, y=ycol, data=df)
+    
+    elif plotType == "Violin Plot":
+        ax = sns.violinplot(x=xcol, y=ycol, data=df)
+    
+    else:
+        return "Invalid plot type"
+    
+    ax.set(xlabel =xlabel, ylabel = ylabel, title =plottitle)
     buffer = io.BytesIO()
     plt.savefig(buffer, format='png')
     buffer.seek(0)
