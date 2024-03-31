@@ -154,7 +154,12 @@ def save():
      
 @app.route('/visualize')
 def visualize():
-    return render_template('visualize.html')
+    if df is not None:
+        columns = df.columns.tolist()
+        return render_template('visualize.html', columns=columns)
+    else:
+        return '<script>alert("DataFrame is not available");window.history.back();</script>'
+    # return render_template('visualize.html')
 
 
 
