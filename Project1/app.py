@@ -157,11 +157,10 @@ def save():
      
 @app.route('/visualize')
 def visualize(color='red'):
-    sns.set(style="whitegrid")
-    tips = sns.load_dataset("tips")
-    ax = sns.barplot(x="day", y="total_bill", data=tips)
-
-    # Save plot to a buffer
+    sns.set_theme(style="darkgrid")
+    
+    
+    ax = sns.barplot(x="day", y="total_bill", data=df)
     buffer = io.BytesIO()
     plt.savefig(buffer, format='png')
     buffer.seek(0)
