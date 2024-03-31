@@ -3,6 +3,7 @@ import pandas as pd
 import io, base64
 import seaborn as sns
 import matplotlib.pyplot as plt
+from flask import current_app as app
 
 
 app = Flask(__name__)
@@ -53,7 +54,7 @@ def clean():
 @app.route('/isnan')
 def isnan():
     global df
-    if 'df' is not None:
+    if df is not None:
         
         na_rows = df[df.isna().any(axis=1)].to_html(classes='table table-stripped')
         
@@ -84,18 +85,13 @@ def drop():
 @app.route('/rename',methods=['GET', 'POST'])
 def rename():
     global df
-    new_column_names = {}
-    for index, column in enumerate(df.columns):
-        new_name = request.form.get(f'renameColumn{index+1}')
-        original_name = request.form.get(f'original_column_{index+1}')
-        if new_name and new_name != original_name:
-            new_column_names[original_name] = new_name
-    
-    if new_column_names:
-        df.rename(columns=new_column_names, inplace=True)
-        rename_df = df.head().to_html(classes='table table-stripped')
+    new_column_name = request.form.get("new_column_name")
+    original_column = request.form.get("original_column")
+
+    if new_column_name and new_column_name != original_column:
+        df.rename(columns={original_column: new_column_name}, inplace=True)
+        rename_df = df.head().to_html(classes='table table-striped')
         return render_template('new_df.html', new_df_head=rename_df)
-        # return 'Columns renamed successfully'
     else:
         return '<script>alert("No columns renamed");window.history.back();</script>'
 
@@ -123,9 +119,9 @@ def sortdf():
         boolValue = False
         
     sort_df = df.sort_values(by=colName,ascending=boolValue)
-    sort_df = df.to_html(classes='table table-stripped')
+    sort_df_html = sort_df.to_html(classes='table table-stripped')
 
-    return render_template('new_df.html', new_df_head=sort_df)
+    return render_template('new_df.html', new_df_head=sort_df_html)
 
 @app.route('/info')
 def info():# Assuming df is your DataFrame
@@ -171,7 +167,7 @@ def visualize():
         return '<script>alert("DataFrame is not available");window.history.back();</script>'
     
 
-@app.route('/view',methods=['GET','POST'])
+@app.route('/view',methods=['POST'])
 def view():
     global df
     plottitle = request.form.get("plotTitle")
@@ -190,7 +186,7 @@ def view():
         ax = sns.lineplot(x=xcol, y=ycol, data=df)
     
     elif plotType == "Bar Plot":
-        ax = sns.barplotplot(x=xcol, y=ycol, data=df)
+        ax = sns.barplot(x=xcol, y=ycol, data=df)
     
     elif plotType == "Histogram":
         ax = sns.histplot(data=df, x=xcol, kde=True)
@@ -211,7 +207,7 @@ def view():
     plot_data = base64.b64encode(buffer.getvalue()).decode()
 
     # Render template with plot image
-    return render_template('charts.html', plot_data=plot_data)
+    return render_template('charts.html', plot_data=plot_data,plottitle=plottitle)
 
 if __name__ == '__main__':
     app.run(debug=True)

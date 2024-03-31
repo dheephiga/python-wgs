@@ -18,7 +18,7 @@
   {%include 'navbar.html' %}
   <br />
   <div class="container">
-    <form class="row g-3">
+    <form class="row g-3" action="{{url_for('view')}}" method="post">
       <div class="col-md-3">
         <label for="plotTitle" class="form-label">Plot Title</label>
         <input type="text" class="form-control" id="plotTitle" name="plotTitle">
@@ -62,7 +62,7 @@
       </div>
       <div class="row g-3">
         <div class="col-md-3">
-          <a class="btn btn-primary" href="{{url_for('view')}}" role="button">View</a>
+          <button class="btn btn-primary" type="submit">View</button>
         </div>
         </div>
 
