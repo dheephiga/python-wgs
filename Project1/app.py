@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, send_file
 import pandas as pd
-import io
+import io, base64
+import seaborn as sns
+import matplotlib.pyplot as plt
+
 
 app = Flask(__name__)
 df = None
@@ -153,15 +156,19 @@ def save():
         return '<script>alert("Error downloading CSV file");window.history.back();</script>'
      
 @app.route('/visualize')
-def visualize():
-    if df is not None:
-        columns = df.columns.tolist()
-        return render_template('visualize.html', columns=columns)
-    else:
-        return '<script>alert("DataFrame is not available");window.history.back();</script>'
-    # return render_template('visualize.html')
+def visualize(color='red'):
+    sns.set(style="whitegrid")
+    tips = sns.load_dataset("tips")
+    ax = sns.barplot(x="day", y="total_bill", data=tips)
 
+    # Save plot to a buffer
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    plot_data = base64.b64encode(buffer.getvalue()).decode()
 
+    # Render template with plot image
+    return render_template('charts.html', plot_data=plot_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
