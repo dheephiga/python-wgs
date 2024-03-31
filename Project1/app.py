@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
 import pandas as pd
 import io
 
@@ -142,10 +142,20 @@ def info():# Assuming df is your DataFrame
     else:
         return '<script>alert("No dataframe available");window.history.back();</script>'
 
-        
+@app.route('/save')
+def save():
+    global df
+    df.to_csv(f'modified_file.csv', index=False)
+    try:
+        return send_file(f'modified_file.csv', as_attachment=True)
+    except Exception as e:
+        # return render_template('error.html', error=f'Error downloading CSV file: {str(e)}')
+        return '<script>alert("Error downloading CSV file");window.history.back();</script>'
+     
 @app.route('/visualize')
 def visualize():
     return render_template('visualize.html')
+
 
 
 if __name__ == '__main__':
