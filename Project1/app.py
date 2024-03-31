@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request
 import pandas as pd
+import io
 
 app = Flask(__name__)
 df = None
@@ -22,7 +23,6 @@ def upload():
 
         try:
             df = pd.read_csv(file)
-            session['df'] = df
             if not df.empty:
                 df_head = df.head()
                 column_names = df_head.columns.values
@@ -125,17 +125,23 @@ def sortdf():
     return render_template('new_df.html', new_df_head=sort_df)
 
 @app.route('/info')
-def info():
-    global df  # Assuming df is your DataFrame
-    df = session.get(df)
-    # Get info and describe summary
-    info_summary = df.info(verbose=True, buf=None, max_cols=None, memory_usage=True)
-    describe_summary = df.describe().to_html(classes='table table-stripped')
+def info():# Assuming df is your DataFrame
+    global df
+    if df is not None:
+        # Capture info summary in a buffer
+        buffer = io.StringIO()
+        df.info(buf=buffer)
+        info_summary = buffer.getvalue()
 
-    # Pass the summary to the template
-    return render_template('df_info.html', info_summary=info_summary, describe_summary=describe_summary)
-    # return render_template("df_info.html")
-    
+        # Write info summary into an HTML file
+        with open("df_info.html", "w", encoding="utf-8") as f:
+            f.write(info_summary)
+        
+        describe_summary = df.describe().to_html(classes='table table-stripped')
+        return render_template('df_info.html', info_summary=info_summary,describe_summary=describe_summary)
+    else:
+        return '<script>alert("No dataframe available");window.history.back();</script>'
+
         
 @app.route('/visualize')
 def visualize():

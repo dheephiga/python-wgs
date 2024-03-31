@@ -20,15 +20,18 @@
     />
 </head>
 <body>
-    <h1>Data Summary</h1>
+    <h1 class="text-center fs-2 fw-semibold"> Data Summary</h1>
 
-    <!-- Display info summary -->
-    <h2>Info</h2>
-    <pre>{{ info_summary }}</pre>
+   
+    <h2 class="text-center fs-2 fw-semibold">Info</h2>
+    <div class = "container">
+    <div class="center-content">
+    <pre class="p-4 border">{{ info_summary  | safe}}</pre>
+    </div>
+    </div>
 
-    <!-- Display describe summary -->
     <h2>Describe</h2>
-    <pre>{{ describe_summary }}</pre>
+    <pre>{{ describe_summary | safe }}</pre>
 
 
 
