@@ -1,0 +1,973 @@
+--- Folder Structure ---
+[.idea]
+    ├── .gitignore
+    ├── [inspectionProfiles]
+        └── profiles_settings.xml
+    ├── misc.xml
+    ├── modules.xml
+    ├── project1.iml
+    ├── vcs.xml
+    └── workspace.xml
+app.py
+[docs]
+    └── .project_structure_ignore
+[templates]
+    ├── charts.html
+    ├── clean.html
+    ├── df_info.html
+    ├── home.html
+    ├── navbar.html
+    ├── na_info.html
+    ├── new_df.html
+    └── visualize.html
+
+--- File Contents ---
+
+--- File: .idea\.gitignore ---
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+
+--- File: .idea\inspectionProfiles\profiles_settings.xml ---
+<component name="InspectionProjectProfileManager">
+  <settings>
+    <option name="USE_PROJECT_PROFILE" value="false" />
+    <version value="1.0" />
+  </settings>
+</component>
+
+--- File: .idea\misc.xml ---
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Black">
+    <option name="sdkName" value="Python 3.12 (Project1)" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12" project-jdk-type="Python SDK" />
+</project>
+
+--- File: .idea\modules.xml ---
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/project1.iml" filepath="$PROJECT_DIR$/.idea/project1.iml" />
+    </modules>
+  </component>
+</project>
+
+--- File: .idea\project1.iml ---
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="Flask">
+    <option name="enabled" value="true" />
+  </component>
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.venv" />
+    </content>
+    <orderEntry type="jdk" jdkName="Python 3.12" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+  <component name="TemplatesService">
+    <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />
+    <option name="TEMPLATE_FOLDERS">
+      <list>
+        <option value="$MODULE_DIR$/../Project1\templates" />
+      </list>
+    </option>
+  </component>
+</module>
+
+--- File: .idea\vcs.xml ---
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
+  </component>
+</project>
+
+--- File: .idea\workspace.xml ---
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3fc65123-402f-4a11-967a-b96fdbf9869e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/clean.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/clean.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/navbar.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Flask Main" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2e7xIouNM2SC3AqIsEXBAoJrseH" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Flask server.project1.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.home.html.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager" selected="Flask server.project1">
+    <configuration name="home.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Project1/Project1/templates/home.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="project1" type="Python.FlaskServer">
+      <module name="project1" />
+      <option name="target" value="$PROJECT_DIR$/app.py" />
+      <option name="targetType" value="PATH" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.home.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-d68999036c7f-b11f5e8da5ad-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.14475.56" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3fc65123-402f-4a11-967a-b96fdbf9869e" name="Changes" comment="" />
+      <created>1711269342207</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1711269342207</updated>
+      <workItem from="1711269354202" duration="10469000" />
+      <workItem from="1711522527375" duration="6391000" />
+      <workItem from="1711707862145" duration="2380000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Project1$project1.coverage" NAME="project1 Coverage Results" MODIFIED="1711281808586" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+  </component>
+</project>
+
+--- File: app.py ---
+from flask import Flask, render_template, request, send_file
+import pandas as pd
+import io, base64
+import seaborn as sns
+import matplotlib.pyplot as plt
+from flask import current_app as app
+
+
+app = Flask(__name__)
+df = None
+
+
+@app.route('/')
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
+
+@app.route('/upload', methods=['POST', 'GET'])
+def upload():
+    global df
+    if request.method == 'POST':
+        file = request.files['file']
+
+        if file.filename == '':
+            return render_template('home.html', error='No file selected')
+
+        try:
+            df = pd.read_csv(file)
+            if not df.empty:
+                df_head = df.head()
+                column_names = df_head.columns.values
+                row_data = list(df_head.values.tolist())
+                return render_template('home.html', column_names=column_names, row_data=row_data, zip=zip)
+            else:
+                return render_template('home.html', error='Uploaded file is empty or invalid')
+        except Exception as e:
+            return render_template('home.html', error='Error reading file: ' + str(e))
+    else:
+        return render_template('home.html')
+
+
+@app.route('/clean')
+def clean():
+    global df
+    if df is not None:
+        columns = df.columns.tolist()
+        return render_template('clean.html', columns=columns)
+    else:
+        return '<script>alert("DataFrame is not available");window.history.back();</script>'
+    # return render_template('clean.html')
+
+
+@app.route('/isnan')
+def isnan():
+    global df
+    if df is not None:
+        
+        na_rows = df[df.isna().any(axis=1)].to_html(classes='table table-stripped')
+        
+        na_columns = df.columns[df.isna().any()].tolist()
+        return render_template('na_info.html', na_rows=na_rows, na_columns=na_columns)
+
+    else:
+        return '<script>alert("DataFrame is not available);window.history.back();</script>'
+
+
+@app.route('/drop',methods=['GET', 'POST'])
+def drop():
+    global df
+    if request.method == 'POST':
+        selected_columns = request.form.getlist('selectedColumns')
+        if not selected_columns:
+            return '<script>alert("No columns selected");window.history.back();</script>'
+        
+        if df is not None:
+            df.drop(columns=selected_columns, inplace=True)
+            new_df_head = df.head().to_html(classes='table table-stripped')
+            return render_template('new_df.html', new_df_head=new_df_head)
+        else:
+            return '<script>alert("DataFrame is not available");window.history.back();</script>'
+    else:
+        return '<script>alert("Method not allowed");window.history.back();</script>'
+
+@app.route('/rename',methods=['GET', 'POST'])
+def rename():
+    global df
+    new_column_name = request.form.get("new_column_name")
+    original_column = request.form.get("original_column")
+
+    if new_column_name and new_column_name != original_column:
+        df.rename(columns={original_column: new_column_name}, inplace=True)
+        rename_df = df.head().to_html(classes='table table-striped')
+        return render_template('new_df.html', new_df_head=rename_df)
+    else:
+        return '<script>alert("No columns renamed");window.history.back();</script>'
+
+    
+@app.route('/reset_index',methods=['POST'])
+def reset_index():
+    global df
+    new_index_name = request.form.get("newIndex")
+    # newdf = df.reset_index(new_index_name,drop=False, inplace=True)
+    newdf = df.set_index(new_index_name, inplace=True)
+    newdf = df.head().to_html(classes='table table-stripped')
+    
+    return render_template('new_df.html', new_df_head=newdf)
+    
+    # return 'Index reset successfully'
+    
+@app.route('/sort',methods=['GET','POST'])
+def sortdf():
+    global df
+    colName = request.form.get("sortCol")
+    boolValue = request.form.get("sortOrder")
+    if boolValue=="ascending":
+        boolValue = True
+    else:
+        boolValue = False
+        
+    sort_df = df.sort_values(by=colName,ascending=boolValue)
+    sort_df_html = sort_df.to_html(classes='table table-stripped')
+
+    return render_template('new_df.html', new_df_head=sort_df_html)
+
+@app.route('/info')
+def info():# Assuming df is your DataFrame
+    global df
+    if df is not None:
+        # Capture info summary in a buffer
+        buffer = io.StringIO()
+        df.info(buf=buffer)
+        info_summary = buffer.getvalue()
+
+        # Write info summary into an HTML file
+        with open("df_info.html", "w", encoding="utf-8") as f:
+            f.write(info_summary)
+        
+        describe_summary = df.describe().to_html(classes='table table-stripped')
+        return render_template('df_info.html', info_summary=info_summary,describe_summary=describe_summary)
+    else:
+        return '<script>alert("No dataframe available");window.history.back();</script>'
+
+@app.route('/save')
+def save():
+    global df
+    df.to_csv(f'modified_file.csv', index=False)
+    try:
+        return send_file(f'modified_file.csv', as_attachment=True)
+    except Exception as e:
+        # return render_template('error.html', error=f'Error downloading CSV file: {str(e)}')
+        return '<script>alert("Error downloading CSV file");window.history.back();</script>'
+     
+@app.route('/visualize')
+def visualize():
+    global df
+    plots = ["Scatter Plot",
+    "Line Plot",
+    "Bar Plot",
+    "Histogram",
+    "Box Plot",
+    "Violin Plot"]
+    columns = df.columns.tolist()
+    if df is not None:
+        return render_template('visualize.html',plots=plots,columns=columns)
+    else:
+        return '<script>alert("DataFrame is not available");window.history.back();</script>'
+    
+
+@app.route('/view',methods=['POST'])
+def view():
+    global df
+    plottitle = request.form.get("plotTitle")
+    plotType = request.form.get("plotType")
+    xcol= request.form.get("xcol")
+    xlabel = request.form.get("xlabel")
+    ycol = request.form.get("ycol")
+    ylabel = request.form.get("ylabel")
+    
+    sns.set_theme(style="darkgrid")   
+    
+    if plotType == "Scatter Plot":
+        ax = sns.scatterplot(x=xcol, y=ycol, data=df)
+    
+    elif plotType == "Line Plot":
+        ax = sns.lineplot(x=xcol, y=ycol, data=df)
+    
+    elif plotType == "Bar Plot":
+        ax = sns.barplot(x=xcol, y=ycol, data=df)
+    
+    elif plotType == "Histogram":
+        ax = sns.histplot(data=df, x=xcol, kde=True)
+    
+    elif plotType == "Box Plot":
+        ax = sns.boxplot(x=xcol, y=ycol, data=df)
+    
+    elif plotType == "Violin Plot":
+        ax = sns.violinplot(x=xcol, y=ycol, data=df)
+    
+    else:
+        return "Invalid plot type"
+    
+    ax.set(xlabel =xlabel, ylabel = ylabel, title =plottitle)
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    plot_data = base64.b64encode(buffer.getvalue()).decode()
+
+    # Render template with plot image
+    return render_template('charts.html', plot_data=plot_data,plottitle=plottitle)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+--- File: docs\.project_structure_ignore ---
+
+
+--- File: templates\charts.html ---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Plot</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            
+            <div class="col-md-8">
+                <div class="card mt-5">
+                    <h2 class="text-center">{{ plottitle }}</h2>
+            <br>
+                    <div class="card-body">
+                        <img src="data:image/png;base64,{{ plot_data }}" alt="Seaborn Plot" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+--- File: templates\clean.html ---
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Clean-Up</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet" />
+  <style>
+    .heading {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<div class="container mt-4">
+  <h1 class="heading">Data Clean-Up</h1>
+  {% include 'navbar.html' %}
+  <br />
+  <div class="row justify-content-center">
+    <div class="col-sm-6 d-flex justify-content-center">
+      <a class="btn btn-primary mb-3" href="{{ url_for('isnan') }}" role="button">Check for NaN Values</a>
+    </div>
+    <div class="col-sm-6 d-flex justify-content-center">
+      <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#dropColumnsModal">
+        Drop Columns
+      </button>
+    </div>
+  </div>
+  <div class="modal fade" id="dropColumnsModal" tabindex="-1" aria-labelledby="dropColumnsModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="dropColumnsModalLabel">
+            Select Columns to Drop
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="dropColumnsForm" action="{{ url_for('drop') }}" method="post">
+            {% for column in columns %}
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="selectedColumns" value="{{ column }}" />
+              <label class="form-check-label">{{ column }}</label>
+            </div>
+            {% endfor %}
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary" form="dropColumnsForm">
+            Drop Selected Columns
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-sm-6 d-flex justify-content-center">
+      <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#renameModal">
+        Rename
+      </button>
+    </div>
+
+    <div class="modal fade" id="renameModal" aria-labelledby="renameColsModal" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="renameColsModalLabel">
+              Rename column in DataFrame
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="renameColsForm" action="{{ url_for('rename') }}" method="post">
+              <div class="row row-cols-lg-auto g-3 align-items-center">
+                <div class="col-12">
+                  <label class="visually-hidden" for="columnRenameInput">Rename selected column to:</label>
+                  <div class="input-group">
+                    <div class="input-group-text">Renamed as</div>
+                    <input type="text" class="form-control" id="columnRenameInput" name="new_column_name"
+                      placeholder="Enter new name">
+                  </div>
+                </div>
+                <div class="col-12">
+                  <label class="visually-hidden" for="columnSelect">Choose original column:</label>
+                  <select name="original_column" id="newIndex" class="form-select">
+                    {% for col in columns %}
+                    <option value="{{ col }}">{{ col }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="text-center mt-3">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 d-flex justify-content-center">
+      <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#resetIndexModal">
+        Reset Index
+      </button>
+    </div>
+  </div>
+  <div class="modal fade" id="resetIndexModal" aria-labelledby="resetIndexModal" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="resetIndexLabel">
+            Reset Index in DataFrame
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="resetIndexForm" action="{{ url_for('reset_index') }}" method="post">
+            <div class="row row-cols-lg-auto g-3 align-items-center">
+              <div class="col-12">
+                <label class="visually-hidden" for="columnSelect">Choose original column:</label>
+                <select name="newIndex" class="form-select">
+                  {% for col in columns %}
+                  <option value="{{ col }}">{{ col }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="text-center mt-3">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-sm-6 d-flex justify-content-center">
+      <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#sortModal">
+        Sort By
+      </button>
+    </div>
+
+    <div class="modal fade" id="sortModal" aria-labelledby="sortModal" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="sortModalLabel">
+              Sort By
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="renameColsForm" action="{{ url_for('sortdf') }}" method="post">
+              <div class="row row-cols-lg-auto g-3 align-items-center">
+                
+                <div class="col-12">
+                  <label class="visually-hidden" for="columnSelect">Choose original column:</label>
+                  <select name="sortCol" id="sortCol" class="form-select">
+                    {% for col in columns %}
+                    <option value="{{ col }}">{{ col }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="row row-cols-lg-auto g-3 align-items-center">
+              <div class="col-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="sortOrder" id="ascending" value="ascending" checked>
+                  <label class="form-check-label" for="flexRadioDefault1">
+                    Ascending
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="sortOrder" id="descending" value="descending">
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    Descending
+                  </label>
+                </div>
+              </div>
+            </div>
+              <div class="text-center mt-3">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 d-flex justify-content-center">
+      <a type="button" class="btn btn-primary mb-3" href="{{ url_for ('info')}}">
+        Data Info
+      </a>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-sm-6 d-flex justify-content-center">
+      <a type="button" class="btn btn-primary mb-3" href="{{url_for('save')}}">
+        Save CSV
+      </a>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+--- File: templates\df_info.html ---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data info</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap"
+      rel="stylesheet"
+    />
+</head>
+<body>
+    <h1 class="text-center fs-2 fw-semibold"> Data Summary</h1>
+
+   
+    <h2 class="text-center fs-2 fw-semibold">Info</h2>
+    <div class = "container">
+    <div class="center-content">
+    <pre class="p-4 border">{{ info_summary  | safe}}</pre>
+    </div>
+    </div>
+
+    <h2>Describe</h2>
+    <pre>{{ describe_summary | safe }}</pre>
+
+
+
+<script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+</body>
+</html>
+
+--- File: templates\home.html ---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <br />
+    <h1 class="text-center fs-2 fw-semibold">Data Analyser</h1>
+    {%include 'navbar.html' %}
+    <br />
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-sm-5 col-md-6">
+          <div class="mb-3">
+            <form action="/upload" method="post" enctype="multipart/form-data">
+              <input class="form-control" type="file" name="file" id="file" />
+              <br />
+              <button
+                class="btn btn-primary btn-sm"
+                type="submit"
+                value="Submit"
+              >
+                Submit
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="resetFileInput()">
+                Reset
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">
+          <h3>Uploaded file</h3>
+          <table>
+            <thead>
+              <tr>
+                {% for col in column_names %}
+                <th>{{col}}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in row_data %}
+              <tr>
+                {% for col, row_ in zip(column_names, row) %}
+                <td>{{row_}}</td>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
+
+
+--- File: templates\navbar.html ---
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="{{url_for('home')}}">Home</a>
+        <a class="nav-link" href="{{ url_for('clean') }}">Clean</a>
+        <a class="nav-link" href="{{ url_for('visualize') }}">Visualize</a>
+      </div>
+    </div>
+  </nav>
+
+--- File: templates\na_info.html ---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Null values</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap"
+      rel="stylesheet"
+    />
+</head>
+<body>
+
+<div class="container">
+  <h3>Null Values from the dataset</h3>
+
+  <p>Columns with NaN Values</p>
+        <ul>
+            {% for column in na_columns %}
+                <li>{{ column }}</li>
+            {% endfor %}
+        </ul>
+  <p>Rows with NaN Values</p>
+        {{ na_rows | safe }}
+        
+        
+    </div>
+</div>
+
+
+<script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+</body>
+</html>
+
+--- File: templates\new_df.html ---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DataFrame</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Updated Dataframe</h2>
+        <div class="table-responsive">
+            {{ new_df_head | safe }}
+        </div>
+        
+    </div>
+</body>
+</html>
+
+
+--- File: templates\visualize.html ---
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Visualize</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet" />
+
+</head>
+
+<body>
+  <br />
+  <h1 class="text-center fs-2 fw-semibold">Data Visualization</h1>
+  {%include 'navbar.html' %}
+  <br />
+  <div class="container">
+    <form class="row g-3" action="{{url_for('view')}}" method="post">
+      <div class="col-md-3">
+        <label for="plotTitle" class="form-label">Plot Title</label>
+        <input type="text" class="form-control" id="plotTitle" name="plotTitle">
+      </div>
+
+      <div class="col-md-3">
+        <label for="plotType" class="form-label">Plot Type</label>
+        <select class="form-select" name="plotType">
+          {%for plot in plots%}
+          <option value="{{plot}}">{{plot}}</option>
+          {%endfor%}
+        </select>
+      </div>
+      <div class="row g-3">
+        <div class="col-md-3">
+          <label for="xcol" class="form-label">x-axis</label>
+          <select class="form-select" name="xcol">
+            {%for col in columns%}
+            <option value="{{col}}">{{col}}</option>
+            {%endfor%}
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="xlabel" class="form-label">x-label</label>
+          <input type="text" class="form-control" id="xlabel" name="xlabel">
+        </div>
+      </div>
+      <div class="row g-3">
+        <div class="col-md-3">
+          <label for="ycol" class="form-label">y-axis</label>
+          <select class="form-select" name="ycol">
+            {%for col in columns%}
+            <option value="{{col}}">{{col}}</option>
+            {%endfor%}
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="ylabel" class="form-label">y-label</label>
+          <input type="text" class="form-control" id="ylabel" name="ylabel">
+        </div>
+      </div>
+      <div class="row g-3">
+        <div class="col-md-3">
+          <button class="btn btn-primary" type="submit">View</button>
+        </div>
+        </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
