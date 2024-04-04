@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_user, logout_user
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_manager
 
 app = Flask(__name__)
 
@@ -12,3 +12,47 @@ db = SQLAlchemy()
 
 login_Manager = LoginManager()
 login_Manager.init_app(app)
+
+class Users(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(24),unique=True, nullable=False)
+    password = db.Column(db.String(48), nullable=False)
+
+db.init_app(app)
+
+with app.app_context():
+    db.create_all()
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Users.query.get(user_id)
+
+@app.route('/register',methods=['GET','POST'])
+def register():
+    if request.method == 'POST':
+        user = Users(username=request.form.get('username'),
+
+    password = request.form.get('password'))
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('login'))
+    return render_template('signup.html')
+
+@app.route('/login',methods=['GET','POST'])
+def login():
+    if request.method == 'POST':
+        user = Users.query.filter_by(username=request.form.get('username').first())
+
+        if user.password == request.form.get('password'):
+            login_user(user)
+            return redirect(url_for('home'))
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
+
+@app.route('/')
+def home():
+    return render_template('home.html')
