@@ -2,10 +2,11 @@ from flask import Flask, render_template, request, redirect, flash, session, mak
 
 app = Flask(__name__)
 app.secret_key = 'sRnlskUafHMbvzPGxbWerP'
-valid_email = 'abc@gmail.com'
+
+users = {}
 
 @app.route('/', methods=['GET', 'POST'])
-def home():
+def signup():
     if request.method == 'POST':
         uname = request.form['uname']
         email = request.form['email']
@@ -23,38 +24,43 @@ def home():
         if password != cpassword:
             flash('Passwords do not match', 'danger')
         else:
-            flash('Form submitted successfully!', 'success')
-            return redirect('/success')
+            if email in users:
+                flash('Email already exists. Please log in.', 'danger')
+            else:
+                users[email] = {'username': uname, 'password': password}
+                flash('Sign up successful! Please log in.', 'success')
+                return redirect('/login')
 
-    return render_template('index.html')
-
-@app.route('/success')
-def success():
-    return redirect('/login')
+    return render_template('signup.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form['email']
-        if email == valid_email:
+        password = request.form['password']
+        if email in users and users[email]['password'] == password:
             session['email'] = email
+            session['uname'] = users[email]['username']
             resp = make_response(redirect('/home'))
-            resp.set_cookie('email', email)
+            resp.set_cookie('uname',session['uname'])
             return resp
+        else:
+            flash('Invalid email or password', 'danger')
+
     return render_template('login.html')
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
-    email = session.get('email')
-    if email:
-        return render_template('home.html', email=email)
+    uname = session.get('uname')
+    if uname:
+        return render_template('home.html', uname=uname)
     return redirect('/login')
 
 @app.route('/logout')
 def logout():
-    session.pop('email', None)
+    session.pop('uname', None)
     resp = make_response(redirect('/login'))
-    resp.delete_cookie('email')
+    resp.delete_cookie('uname')
     return resp
 
 if __name__ == '__main__':
