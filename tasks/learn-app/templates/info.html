@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Registration Information{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    {% if user_info %}
+    <h1>Registration Information</h1>
+    <p>Name: {{ user_info.name }}</p>
+    <p>Email: {{ user_info.email }}</p>
+    <p>Age: {{ user_info.age }}</p>
+    <p>Course: {{ user_info.course }}</p>
+    {% else %}
+    <h1>User Information Not Found</h1>
+    <p>Please <a href="/login">login</a> to view your information.</p>
+    {% endif %}
+</div>
+{% endblock %}

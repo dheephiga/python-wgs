@@ -1,0 +1,316 @@
+--- Folder Structure ---
+app.py
+[docs]
+    └── .project_structure_ignore
+[static]
+    └── map.jpg
+[templates]
+    ├── base.html
+    ├── contact.html
+    ├── home.html
+    ├── info.html
+    ├── login.html
+    ├── logout.html
+    └── signup.html
+
+--- File Contents ---
+
+--- File: app.py ---
+from flask import Flask, render_template, request, redirect, flash, session, make_response
+
+app = Flask(__name__)
+app.secret_key = 'sRfqaefqfcqqvhetuwcbWerP'
+users = {}
+
+@app.route('/')
+def home():
+    return render_template('home.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        if email not in users:
+            flash('Email does not exist. Please sign up.', 'danger')
+        elif users[email]['password'] != password:
+            flash('Incorrect password. Please try again.', 'danger')
+        else:
+            session['email'] = email
+            session['logged_in'] = True
+            resp = make_response(redirect('/home'))
+            resp.set_cookie('email', email)
+            flash('Login successful!', 'success')
+            return resp
+    return render_template('login.html')
+
+
+@app.route('/logout')
+def logout():
+    session.pop('email', None)
+    session.pop('logged_in', None)
+    resp = make_response(redirect('/login'))
+    resp.delete_cookie('email')
+    flash('Logged out successfully.', 'success')
+    return resp
+
+
+@app.route('/sign-up', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        name = request.form['name']  
+        age = request.form['age']
+        course = request.form['course']
+        
+        if email not in users:
+            users[email] = {'password': password, 'name': name, 'age': age, 'course': course}
+            flash('Sign up successful! Please log in.', 'success')
+            return redirect('/login')
+        else:
+            flash('Email already exists. Please log in.', 'danger')
+    return render_template('signup.html')
+
+
+@app.route('/info')
+def info():
+    if 'email' in session:
+        email = session['email']
+        if email in users:
+            user_info = users[email]  
+            return render_template('info.html', user_info=user_info)
+        else:
+            flash('User information not found.', 'danger')
+            return redirect('/login')
+    else:
+        flash('You must be logged in to view this page.', 'danger')
+        return redirect('/login')
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+--- File: templates\base.html ---
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>{% block title %}Home{% endblock %}</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbar"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" id="home" href="/">Home</a>
+                {% if logged_in %}
+                <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+                {% else %}
+                <a class="nav-item nav-link" id="login" href="/login">Login</a>
+                <a class="nav-item nav-link" id="contactus" href="/contact">Contact Us</a>
+
+                <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <div class="alert alert-dismissible alert-info">
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          <ul>
+              {% for message in messages %}
+              <li>{{ message }}</li>
+              {% endfor %}
+          </ul>
+      </div>
+      {% endif %}
+      {% endwith %}
+
+      {% block content %}
+      {% endblock %}
+  </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+
+--- File: templates\contact.html ---
+{% extends 'base.html' %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Contact Us</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <form action="/submit_contact_form" method="POST">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message:</label>
+                    <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h2>Location Map</h2>
+            <img src="{{ url_for('static', filename='map.jpg') }}" alt="Location Map" class="img-fluid">
+        </div>
+    </div>
+{% endblock %}
+
+
+--- File: templates\home.html ---
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    {% if session.logged_in %}
+        {% include 'info.html' %}
+    {% else %}
+        <h1>Login Required</h1>
+        <p>Please <a href="/login">login</a> to access your information.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+
+--- File: templates\info.html ---
+{% extends 'base.html' %}
+
+{% block title %}Registration Information{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    {% if session.logged_in %}
+    <h1>Registration Information</h1>
+    <p>Name: {{ session.name }}</p>
+    <p>Email: {{ session.email }}</p>
+    <p>Age: {{ session.age }}</p>
+    <p>Course: {{ session.course }}</p>
+    {% else %}
+    <h1>Login Required</h1>
+    <p>Please <a href="/login">login</a> to access your information.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+
+--- File: templates\login.html ---
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <form method="POST">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password">
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+
+--- File: templates\logout.html ---
+{% extends 'base.html' %}
+
+{% block title %}Logout{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <h3>Are you sure you want to logout?</h3>
+        <form method="POST">
+            <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+
+--- File: templates\signup.html ---
+{% extends 'base.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <form method="POST">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" name="name" id="name" placeholder="Enter your name">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email">
+            </div>
+            <div class="mb-3">
+                <label for="age" class="form-label">Age</label>
+                <input type="number" class="form-control" name="age" id="age" placeholder="Enter your age">
+            </div>
+            <div class="mb-3">
+                <label for="course" class="form-label">Course</label>
+                <input type="text" class="form-control" name="course" id="course" placeholder="Enter your course">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password">
+            </div>
+            <div class="mb-3">
+                <label for="confirm_password" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm your password">
+            </div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
