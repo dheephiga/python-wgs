@@ -35,7 +35,8 @@ app = Flask(__name__)
 def index():
     v1 = 'neuron'
     result = 10 + 393
-    return render_template('index.html',v1=v1,result=result)
+    myl = [10,90,44,89,45]
+    return render_template('index.html',v1=v1,result=result,list=myl)
 
 
 if __name__ == '__main__':

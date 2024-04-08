@@ -9,5 +9,15 @@
     Yo, Flask
     <p>{{v1}}</p>
     <p>{{result}}</p>
+    <ul>
+        {%for item in list %}
+            
+                <li {% if item==10 %} style="color:green" {%endif%}>{{item}}</li>
+           
+                
+                
+                {%endfor%}
+            </ul>
+    
 </body>
 </html>
