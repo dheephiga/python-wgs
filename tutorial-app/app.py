@@ -38,6 +38,8 @@ def index():
     myl = [10,90,44,89,45]
     return render_template('index.html',v1=v1,result=result,list=myl)
 
-
+@app.route('/other')
+def other():
+    return render_template('index2.html')
 if __name__ == '__main__':
     app.run(debug=True)
