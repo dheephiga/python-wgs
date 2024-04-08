@@ -1,4 +1,4 @@
-from flask import Flask, request,make_response,render_template
+from flask import Flask, request,make_response,render_template,url_for,redirect  
 
 app = Flask(__name__)
 
@@ -38,10 +38,14 @@ def index():
     myl = [10,90,44,89,45]
     return render_template('index.html',v1=v1,result=result,list=myl)
 
-@app.route('/other')
+@app.route('/nope')
 def other():
     text = 'Hello Python'
     return render_template('index2.html',text=text)
+
+@app.route('/redirect')
+def redirect_point():
+    return redirect(url_for('other'))
 
 @app.template_filter('reverse_string')
 def reverse_string(s):
@@ -54,5 +58,7 @@ def repeat(s,times=2):
 @app.template_filter('alternate_case')
 def alternate_case(s):
     return ''.join([c.upper() if i%2==0 else c.lower() for i,c in enumerate(s)])
+
+
 if __name__ == '__main__':
     app.run(debug=True)
