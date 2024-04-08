@@ -1,0 +1,11 @@
+python
+flask
+render
+template
+notepad
+vscode
+extension
+snippet
+chrome
+mozilla
+safari

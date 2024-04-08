@@ -1,4 +1,4 @@
-from flask import Flask, request,make_response,render_template,url_for,redirect  
+from flask import Flask, request,make_response,render_template,url_for,redirect
 
 app = Flask(__name__)
 
@@ -14,12 +14,16 @@ def index():
             return 'success'
         else:
             return 'fail'
-@app.route('/file-upload',methods=['GET','POST'])
+        
+@app.route('/file-upload',methods=['POST'])
 def file_upload():
     file = request.files['file']
     
     if file.content_type == 'text/plain':
         return file.read().decode()
+    
+    else:
+        return ""
 
 
 
