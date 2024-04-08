@@ -14,7 +14,12 @@ def index():
             return 'success'
         else:
             return 'fail'
-
+@app.route('/file-upload',methods=['GET','POST'])
+def file_upload():
+    file = request.files['file']
+    
+    if file.content_type == 'text/plain':
+        return file.read().decode()
 
 
 
