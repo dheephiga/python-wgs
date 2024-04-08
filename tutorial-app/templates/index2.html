@@ -3,4 +3,15 @@
 
 {%block content%}
    <h2>new page </h2>
-{%endblock%}
+   <p> {{text | lower}} </p>
+   <p> {{text | upper}} </p>
+   <p> {{text | title}} </p>
+   <p> {{text | replace('l','L')}} </p>
+   <p> {{text | lower}} </p>
+   <p> {{text | reverse}} </p>
+   <p> {{text | repeat(7)}} </p>
+   <p> {{text | alternate_case}} </p>
+
+
+
+   {%endblock%}
