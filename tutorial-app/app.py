@@ -25,10 +25,9 @@ def file_upload():
     else:
         return ""
 
-
-
-
-
+@app.route('/convert-csv',methods=['GET','POST'])
+def convert_csv():
+    file = request.files['file']
 
 
 

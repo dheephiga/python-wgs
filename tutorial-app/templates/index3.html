@@ -13,4 +13,9 @@
         <input type="file" name="file" accept="text/plain">
         <input type="submit" value="upload">
     </form>
+
+    <h1>convert csv/h1>
+    <form action="{{url_for('convert_csv')}}" method="post" enctype="multipart/form-data">
+        <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />        <input type="submit" value="upload">
+    </form>
 {% endblock %}
