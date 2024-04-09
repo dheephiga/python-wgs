@@ -3,11 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Set your secret key for session management
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # SQLite database file path
+app.secret_key = 'bivdahifbeiHVWIRBIRBI'  
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  
 db = SQLAlchemy(app)
 
-# Define User model
+#
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), nullable=False)
@@ -15,12 +15,11 @@ class User(db.Model):
     age = db.Column(db.Integer, nullable=False)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(128), nullable=False)  # Increased length for hashed password
+    password = db.Column(db.String(128), nullable=False)  
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
 
-# Create all database tables
 with app.app_context():
     db.create_all()
 
@@ -29,7 +28,6 @@ with app.app_context():
 def home():
     username = None
     if 'user_id' in session:
-        # Get the user object from the database based on user_id
         user = User.query.get(session['user_id'])
         if user:
             username = user.username
@@ -46,19 +44,15 @@ def signup():
         password = request.form['password']
         confirm_password = request.form['confirmPassword']
 
-        # Check if the username or email already exists
         existing_user = User.query.filter_by(username=username).first() or User.query.filter_by(email=email).first()
         if existing_user:
             return 'Username or email already exists!'
 
-        # Check if passwords match
         if password != confirm_password:
             return 'Passwords do not match!'
 
-        # Hash the password before storing it
         hashed_password = generate_password_hash(password)
 
-        # Create a new user
         new_user = User(name=name, gender=gender, age=age, username=username, email=email, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
@@ -72,7 +66,6 @@ def login():
         email = request.form['email']
         password = request.form['password']
 
-        # Check if user exists and password is correct
         user = User.query.filter_by(email=email).first()
         if user and check_password_hash(user.password, password):
             session['user_id'] = user.id
