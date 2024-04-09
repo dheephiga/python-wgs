@@ -11,7 +11,7 @@
 
     <p>Welcome to your pushups-logger! <br> This web app is a minimal clone of https://www.pushupslogger.com to implement basic CRUD and user authentication using Flask. You can add your pushups workout here</p>
     {% if 'user_id' in session %}
-    <p>Welcome, {{ session['username'] }}!</p>
+    <p>Welcome, {{ username }}!</p>
     <form action="{{ url_for('logout') }}" method="post">
         <button type="submit" class="btn btn-primary">Logout</button>
     </form>

@@ -29,10 +29,11 @@ with app.app_context():
 def home():
     username = None
     if 'user_id' in session:
-        # Assuming you have stored the username in the session
-        username = session['username']
+        # Get the user object from the database based on user_id
+        user = User.query.get(session['user_id'])
+        if user:
+            username = user.username
     return render_template('home.html', username=username)
-    return render_template('home.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
