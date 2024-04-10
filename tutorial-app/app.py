@@ -1,4 +1,5 @@
-from flask import Flask, request,make_response,render_template,url_for,redirect
+from flask import Flask, request,make_response,render_template,url_for,redirect, Response
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -28,6 +29,11 @@ def file_upload():
 @app.route('/convert-csv',methods=['GET','POST'])
 def convert_csv():
     file = request.files['file']
+    
+    df = pd.read_excel(file)
+    response = Response(
+        df.to_csv()
+    )
 
 
 
