@@ -23,4 +23,26 @@
     <form action="{{url_for('convert_csv_two')}}" method="post" enctype="multipart/form-data">
         <input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />        <input type="submit" value="upload">
     </form>
+
+    <h1>JS JSON request</h1>
+    <button id="post_button">Send POST request</button>
+    <script type="text/javascript">
+        const postButton = document.getElementById('post_button');
+        const json_data = {name:'Mike',greeting:'Hola'}
+
+        postButton.addEventListener('click', () => {
+            fetch('{{url_for("handle_post")}}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json charset=utf-8'
+                },
+                body: JSON.stringify(json_data)
+            })
+            .then(response => response.json())
+            .then(data=>console.log('Success: ', data))
+            .catch((error) => {
+                console.error('Error:',error)
+            });
+        });
+    </script>
 {% endblock %}
