@@ -1,74 +1,88 @@
-from flask import Flask, request,make_response,render_template,url_for,redirect, Response, send_from_directory, jsonify
+from flask import Flask, request,make_response,render_template,url_for,redirect, Response, send_from_directory, jsonify,session
 import pandas as pd
 import os
 import uuid
 
 app = Flask(__name__)
+app.secret_key = 'KEY'
 
-@app.route('/',methods=['GET','POST'])
+@app.route('/')
 def index():
-    if request.method == 'GET':
-        return render_template('index3.html')
-    elif request.method=='POST':
-        username = request.form['username']
-        password = request.form['password']
+    return render_template('index4.html')
 
-        if username == 'admin' and password == 'admin':
-            return 'success'
-        else:
-            return 'fail'
+@app.route('/set_data')
+def set_data():
+    session['name'] = 'Mike'
+    session['other'] = 'Hey flask'
+    return render_template('index4.html',message='session data set')
+
+
+
+
+# @app.route('/',methods=['GET','POST'])
+# def index():
+#     if request.method == 'GET':
+#         return render_template('index3.html')
+#     elif request.method=='POST':
+#         username = request.form['username']
+#         password = request.form['password']
+
+#         if username == 'admin' and password == 'admin':
+#             return 'success'
+#         else:
+#             return 'fail'
         
-@app.route('/file-upload',methods=['POST'])
-def file_upload():
-    file = request.files['file']
+# @app.route('/file-upload',methods=['POST'])
+# def file_upload():
+#     file = request.files['file']
     
-    if file.content_type == 'text/plain':
-        return file.read().decode()
+#     if file.content_type == 'text/plain':
+#         return file.read().decode()
     
-    else:
-        return ""
+#     else:
+#         return ""
 
-@app.route('/convert-csv',methods=['GET','POST'])
-def convert_csv():
-    file = request.files['file']
+# @app.route('/convert-csv',methods=['GET','POST'])
+# def convert_csv():
+#     file = request.files['file']
     
-    df = pd.read_excel(file)
-    response = Response(
-        df.to_csv(),
-        mimetype='text/csv',
-        headers={
-            'Content-Disposition': 'attachement; filename=result.csv'
-        }
-    )
-    return response
+#     df = pd.read_excel(file)
+#     response = Response(
+#         df.to_csv(),
+#         mimetype='text/csv',
+#         headers={
+#             'Content-Disposition': 'attachement; filename=result.csv'
+#         }
+#     )
+#     return response
 
-@app.route('/convert_csv_two',methods=['POST'])
-def convert_csv_two():
-    file = request.files['file']
-    df = pd.read_excel(file)
+# @app.route('/convert_csv_two',methods=['POST'])
+# def convert_csv_two():
+#     file = request.files['file']
+#     df = pd.read_excel(file)
     
-    if not os.path.exists('downloads'):
-        os.makedirs('downloads')
+#     if not os.path.exists('downloads'):
+#         os.makedirs('downloads')
     
-    filename = f'{uuid.uuid4()}.csv'
+#     filename = f'{uuid.uuid4()}.csv'
     
-    df.to_csv(os.path.join('downloads',filename))
+#     df.to_csv(os.path.join('downloads',filename))
 
-    return render_template('download.html',filename=filename)
+#     return render_template('download.html',filename=filename)
 
-@app.route('/download/<filename>')
-def download(filename):
-    return send_from_directory('downloads',filename,download_name='result.csv')
+# @app.route('/download/<filename>')
+# def download(filename):
+#     return send_from_directory('downloads',filename,download_name='result.csv')
 
-@app.route('/handle_post',methods=['POST'])
-def handle_post():
-    greeting = request.json['greeting']
-    name = request.json['name']
+# @app.route('/handle_post',methods=['POST'])
+# def handle_post():
+#     greeting = request.json['greeting']
+#     name = request.json['name']
     
-    with open('file.txt','w') as f:
-        f.write(f'{greeting}, {name}')
+#     with open('file.txt','w') as f:
+#         f.write(f'{greeting}, {name}')
     
-    return  jsonify({'message':'successfully written'})
+#     return  jsonify({'message':'successfully written'})
     
     
 # @app.route('/')

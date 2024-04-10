@@ -1,0 +1,9 @@
+{% extends 'base.html'%}
+{%block title%} Session{%endblock%}
+
+{%block content%}
+
+<p>{{message}}</p>
+
+<a href="{{url_for('set_data')}}">set session data</a>
+   {%endblock%}
