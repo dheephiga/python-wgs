@@ -16,6 +16,11 @@
 
     <h1>convert csv </h1>
     <form action="{{url_for('convert_csv')}}" method="post" enctype="multipart/form-data">
-        <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />        <input type="submit" value="upload">
+        <input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />        <input type="submit" value="upload">
+    </form>
+
+    <h1>convert csv two</h1>
+    <form action="{{url_for('convert_csv_two')}}" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />        <input type="submit" value="upload">
     </form>
 {% endblock %}
