@@ -16,6 +16,15 @@ def set_data():
     session['other'] = 'Hey flask'
     return render_template('index4.html',message='session data set')
 
+@app.route('/get_data')
+def get_data():
+    name = session['name']
+    other = session['other']
+    
+    return render_template('index4.html',message=f'Name: {name} other: {other}')
+    
+    
+
 
 
 
