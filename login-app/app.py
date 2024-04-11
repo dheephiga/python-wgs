@@ -12,10 +12,10 @@ def create_app():
     # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://'
 
     db.init_app(app)
-    
-    
+
+
     from routes import register_routes
     register_routes(app,db)
     migrate = Migrate(app,db)
-    
+
     return app

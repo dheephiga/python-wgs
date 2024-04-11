@@ -1,3 +1,4 @@
+from flask_login import UserMixin
 from app import db
 
 class Person(db.Model):
@@ -7,8 +8,10 @@ class Person(db.Model):
     name = db.Column(db.Text,nullable=False)
     age = db.Column(db.Integer)
     job = db.Column(db.Text)
-    
-    
+
     def __repr__(self):
         return f'Person with name {self.name} and age {self.age}'
+
+
+
         
