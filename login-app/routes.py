@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import render_template, request,redirect,url_for,flash
 from models import User
 from flask_login import login_user, logout_user, current_user, login_required
 
@@ -6,7 +6,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 def register_routes(app, db, bcrypt):
     @app.route('/', methods=['GET', 'POST'])
     def index():
-        return render_template('index.html')
+        return render_template('index.html', current_user=current_user)
 
     @app.route('/signup', methods=['GET', 'POST'])
     def signup():
@@ -14,17 +14,38 @@ def register_routes(app, db, bcrypt):
             return render_template('signup.html')
 
         elif request.method == 'POST':
-            pass
+            username = request.form.get('username')
+            password = request.form.get('password')
+
+            hashed_password = bcrypt.generate_password_hash(password)
+
+            user = User(username=username, password=hashed_password)
+            db.session.add(user)
+            db.session.commit()
+
+            return redirect(url_for('index'))
 
     @app.route('/login', methods=['GET', 'POST'])
-    def signup():
+    def login():
         if request.method == 'GET':
             return render_template('login.html')
 
         elif request.method == 'POST':
-            pass
+            username = request.form.get('username')
+            password = request.form.get('password')
+
+            # hashed_password = bcrypt.generate_password_hash(password)
+            user = User.query.filter_by(username = username).first()
+
+            if user and bcrypt.check_password_hash(user.password, password):
+                login_user(user)
+                print(f"Logged in user: {current_user.username}")
+                return redirect(url_for('index'))
+
+            else:
+                return 'Failed'
 
     @app.route('/logout')
     def logout():
         logout_user()
-        return 'success'
+        return redirect(url_for('index'))
