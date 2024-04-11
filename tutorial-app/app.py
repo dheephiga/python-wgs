@@ -1,49 +1,89 @@
-from flask import Flask, request,make_response,render_template,url_for,redirect, Response, send_from_directory, jsonify,session
+from flask import (
+    Flask,
+    request,
+    make_response,
+    render_template,
+    url_for,
+    redirect,
+    Response,
+    send_from_directory,
+    jsonify,
+    session,
+    flash
+)
 import pandas as pd
 import os
 import uuid
 
 app = Flask(__name__)
-app.secret_key = 'KEY'
+app.secret_key = "KEY"
 
-@app.route('/')
+
+@app.route("/")
 def index():
-    return render_template('index4.html')
+    return render_template("index4.html")
 
-@app.route('/set_data')
+
+@app.route("/set_data")
 def set_data():
-    session['name'] = 'Mike'
-    session['other'] = 'Hey flask'
-    return render_template('index4.html',message='session data set')
+    session["name"] = "Mike"
+    session["other"] = "Hey flask"
+    return render_template("index4.html", message="session data set")
 
-@app.route('/get_data')
+
+@app.route("/get_data")
 def get_data():
-    if 'name' in session.keys() and 'other' in session.keys():
-        name = session['name']
-        other = session['other']
-        return render_template('index4.html',message=f'Name: {name} other: {other}')
+    if "name" in session.keys() and "other" in session.keys():
+        name = session["name"]
+        other = session["other"]
+        return render_template("index4.html", message=f"Name: {name} other: {other}")
 
     else:
-        return render_template('index4.html',message='no keys found')
-    
-@app.route('/clear_Session')
+        return render_template("index4.html", message="no keys found")
+
+
+@app.route("/clear_Session")
 def clear_session():
     session.clear()
-    #session.pop('name)
-    return render_template('index4.html',message='session cleared')
+    # session.pop('name)
+    return render_template("index4.html", message="session cleared")
 
-@app.route('/set_cookie')
+
+@app.route("/set_cookie")
 def set_cookie():
-    response = make_response(render_template('index4.html',message='cookie set'))
-    response.set_cookie('cookie_name','cookie_value')
+    response = make_response(render_template("index4.html", message="cookie set"))
+    response.set_cookie("cookie_name", "cookie_value")
     return response
 
-@app.route('/get_cookie')
+
+@app.route("/get_cookie")
 def get_cookie():
-    cookie_value = request.cookies['cookie_name']
-    return render_template('index4.html',message=f'Cookie Value = {cookie_value}')
+    cookie_value = request.cookies["cookie_name"]
+    return render_template("index4.html", message=f"Cookie Value = {cookie_value}")
 
 
+@app.route("/remove_cookie")
+def remove_cookie():
+    response = make_response(
+        render_template("index4.html", message="cookie removed successfully")
+    )
+    response.set_cookie("cookie_name", expires=0)
+    return response
+
+@app.route('/login',methods=['GET','POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('login.html')
+    elif request.method == 'POST':
+        username = request.form.get('username') 
+        password = request.form.get('password')
+       
+        if username=='admin' and password == 'admin':
+            flash('Successful login')
+            return render_template('index4.html',mesaage='')
+        else:
+            flash('login failed')
+            return render_template('index4.html',mesaage='')
 
 
 # @app.route('/',methods=['GET','POST'])
@@ -58,21 +98,21 @@ def get_cookie():
 #             return 'success'
 #         else:
 #             return 'fail'
-        
+
 # @app.route('/file-upload',methods=['POST'])
 # def file_upload():
 #     file = request.files['file']
-    
+
 #     if file.content_type == 'text/plain':
 #         return file.read().decode()
-    
+
 #     else:
 #         return ""
 
 # @app.route('/convert-csv',methods=['GET','POST'])
 # def convert_csv():
 #     file = request.files['file']
-    
+
 #     df = pd.read_excel(file)
 #     response = Response(
 #         df.to_csv(),
@@ -87,12 +127,12 @@ def get_cookie():
 # def convert_csv_two():
 #     file = request.files['file']
 #     df = pd.read_excel(file)
-    
+
 #     if not os.path.exists('downloads'):
 #         os.makedirs('downloads')
-    
+
 #     filename = f'{uuid.uuid4()}.csv'
-    
+
 #     df.to_csv(os.path.join('downloads',filename))
 
 #     return render_template('download.html',filename=filename)
@@ -105,25 +145,25 @@ def get_cookie():
 # def handle_post():
 #     greeting = request.json['greeting']
 #     name = request.json['name']
-    
+
 #     with open('file.txt','w') as f:
 #         f.write(f'{greeting}, {name}')
-    
+
 #     return  jsonify({'message':'successfully written'})
-    
-    
+
+
 # @app.route('/')
 # def index():
 #     return "hey"
 
 # @app.route('/hello')
-# def hello():  
+# def hello():
 # #    return 'helloWorld', 201
 #     response = make_response('hola')
 #     response.status_code = 202
 #     response.headers['content-type'] = 'text/plain'
 #     return response
-    
+
 
 # @app.route('/greet/<name>')
 # def greet(name):
@@ -170,5 +210,5 @@ def get_cookie():
 #     return ''.join([c.upper() if i%2==0 else c.lower() for i,c in enumerate(s)])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
