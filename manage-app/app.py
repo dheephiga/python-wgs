@@ -92,6 +92,7 @@ def logout():
         session.pop('user_id', None)
     return redirect(url_for('index'))
 
+
 @app.route('/create_task', methods=['GET'])
 def create_task_form():
     return render_template('task_create.html')
@@ -123,6 +124,19 @@ def view_tasks():
     tasks = Task.query.all()
     return render_template('tasks.html', tasks=tasks)
 
+@app.route('/tasks/<int:task_id>/edit', methods=['POST'])
+def edit_task(task_id):
+    if request.method == 'POST':
+        task = Task.query.get(task_id)
+        if not task:
+            return jsonify({'error': 'Task not found'}), 404
+
+        task.title = request.form.get('title')
+        task.task = request.form.get('task')
+        task.assignee = request.form.get('assignee')
+        db.session.commit()
+
+        return jsonify({'message': 'Task updated successfully'}), 200
 if __name__ == '__main__':
     app.run(debug=True)
     
