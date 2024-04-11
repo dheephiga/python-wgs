@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Tasks
+{% endblock %}
+
+{% block content %}
+<h3>Tasks</h3>
+<div class="accordion" id="accordionTasks">
+  {% for task in tasks %}
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="task{{ task.id }}">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#taskCollapse{{ task.id }}" aria-expanded="true" aria-controls="taskCollapse{{ task.id }}">
+        {{ task.title }}
+      </button>
+    </h2>
+    <div id="taskCollapse{{ task.id }}" class="accordion-collapse collapse" aria-labelledby="task{{ task.id }}" data-bs-parent="#accordionTasks">
+      <div class="accordion-body">
+        <strong>{{ task.title }}</strong><br>
+        {{ task.task }}<br>
+        Assignee: {{ task.assignee }}<br>
+        <div class="row justify-content-end">
+          <div class="col-auto">
+            <button type="button" class="btn btn-primary btn-sm">Edit</button>
+          </div>
+          <div class="col-auto">
+            <button type="button" class="btn btn-success btn-sm">Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+

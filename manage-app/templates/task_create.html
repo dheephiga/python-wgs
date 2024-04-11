@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}
+New task
+{% endblock %}
+
+{% block content %}
+<h3>Create New Task</h3>
+<div class="mb-3">
+    <div class="container">
+        <form action="{{url_for('create_task')}}" method="post" id="create-task">
+           
+            <div class="mb-3 row">
+                <label for="title" class="col-4 col-form-label">Title</label>
+                <input type="text" class="form-control" name="title" placeholder="Title" />
+
+            </div>
+            <div class="mb-3 row">
+                <label for="priority" class="col-4 col-form-label">Priority</label>
+                <select class="form-select" name="assignee">
+                    <option selected>Choose priority</option>
+                    <option value="critical">critical</option>
+                    <option value="high">high</option>
+                    <option value="low">low</option>
+                </select>
+
+            </div>
+            <div class="mb-3 row">
+                <label for="assignee" class="col-4 col-form-label">Assignee</label>
+                <select class="form-select" name="assignee">
+                    <option selected>Select assignee</option>
+                    <option value="tl">TL</option>
+                    <option value="developer">developer</option>
+                    <option value="tester">tester</option>
+                </select>
+
+            </div>
+            <div class="mb-3 row">
+                <label for="task" class="col-4 col-form-label">Task</label>
+                
+                    <textarea class="form-control" name="task" rows="3"></textarea>
+                
+                
+
+            </div>
+
+            <div class="mb-3 row">
+                <div class="offset-sm-4 col-sm-8">
+                    <button type="submit" class="btn btn-primary">
+                        Assign
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{%endblock%}
