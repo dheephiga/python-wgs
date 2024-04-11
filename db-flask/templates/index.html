@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{%block title%} Index {%endblock%}
+
+{%block content%}  
+
+<h1>Index Page</h1>
+<ul>
+    {% for person in people %}
+    <li>
+        {{person}}
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
