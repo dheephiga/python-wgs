@@ -1,0 +1,11 @@
+OrderID,Product,Category,Price,Quantity,Date
+1,ProductA,Electronics,500,2,2023-01-01
+2,ProductB,Books,20,5,2023-01-02
+3,ProductC,Electronics,800,1,2023-01-03
+4,ProductA,Electronics,500,3,2023-01-04
+5,ProductD,Clothing,50,4,2023-02-05
+6,ProductE,Books,30,2,2023-02-10
+7,ProductB,Books,20,6,2023-02-15
+8,ProductA,Electronics,500,1,2023-03-20
+9,ProductC,Electronics,800,2,2023-03-25
+10,ProductD,Clothing,50,3,2023-04-01
