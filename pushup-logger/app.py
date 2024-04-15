@@ -27,7 +27,7 @@ with app.app_context():
 @app.route('/')
 @app.route('/home')
 def home():
-    username = None
+    username = ""
     if 'user_id' in session:
         user = User.query.get(session['user_id'])
         if user:
