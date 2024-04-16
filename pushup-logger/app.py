@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Column, Integer, Text, Date, String
+from sqlalchemy.orm import declarative_base # type: ignore
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask.globals import request_ctx
 
@@ -7,24 +9,36 @@ app = Flask(__name__)
 app.secret_key = 'bivdahifbeiHVWIRBIRBI'  
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  
 db = SQLAlchemy(app)
+   
+Base = declarative_base()
 
+class User(Base):
+    __tablename__ = 'users'
 
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20), nullable=False)
-    gender = db.Column(db.String(10), nullable=False)
-    age = db.Column(db.Integer, nullable=False)
-    username = db.Column(db.String(20), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(128), nullable=False)  
-
+    id = Column(Integer, primary_key=True)
+    name = Column(String(20), nullable=False)
+    gender = Column(String(10), nullable=False)
+    age = Column(Integer, nullable=False)
+    username = Column(String(20), unique=True, nullable=False)
+    email = Column(String(120), unique=True, nullable=False)
+    password = Column(String(128), nullable=False)  
+    
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
+    
+class Pushups(Base):
+    __tablename__ = 'pushups'
 
+    id = Column(Integer, primary_key=True)
+    count = Column(Integer, nullable=False)
+    comment = Column(Text, nullable=False)
+    date = Column(Date, nullable=False)
+
+    def __repr__(self):
+        return f"Pushups(id={self.id}, count={self.count}, comment='{self.comment}', date={self.date})"
+    
 with app.app_context():
     db.create_all()
-
-pushups = []
 
 @app.route('/')
 @app.route('/home')
@@ -86,7 +100,8 @@ def logout():
 
 @app.route('/show-workouts')
 def show_workouts():
-    pass
+    pushup_data = Pushups.query.all()
+    return render_template('dashboard.html',pushup_data=pushup_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
