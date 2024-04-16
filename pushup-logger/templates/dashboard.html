@@ -1,17 +1,18 @@
-{% extends 'base.html' %}
-{% block title %}
-    dashboard
-{% endblock %}
-
-{block content}
-<div class="container text-center">
-    <div class="row align-items-start">
+{% extends 'base.html' %} {% block title %} dashboard {% endblock %} {% block
+content %}
+<div class="container">
+  <div class="row align-items-start">
+    <div class="col">
+      <ul>
         {% for pushup in pushup_data %}
-      <div class="col">
-        <h3>{{ pushups.date }}</h3>
-            <p>User: {{ pushups.count }}</p>
-            <p>Pushups Count: {{ pushup.comment }}</p>
-      </div>
+        <li>
+          <p>{{ pushup.date }}</p>
+          <p>User: {{ pushup.count }}</p>
+          <p>Pushups Count: {{ pushup.comment }}</p>
+        </li>
+        {% endfor %}
+      </ul>
     </div>
   </div>
-{%endblock}
+</div>
+{% endblock %}

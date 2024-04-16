@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, Text, Date, String
-from sqlalchemy.orm import declarative_base # type: ignore
+from sqlalchemy.orm import declarative_base 
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask.globals import request_ctx
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = 'bivdahifbeiHVWIRBIRBI'  
@@ -100,8 +100,23 @@ def logout():
 
 @app.route('/show-workouts')
 def show_workouts():
-    pushup_data = Pushups.query.all()
+    pushup_data = db.session.query(Pushups).all()
     return render_template('dashboard.html',pushup_data=pushup_data)
 
+@app.route('/add-workout',methods=['GET','POST'])
+def add_workouts():
+    if request.method == 'GET':
+        return render_template('workout.html')
+    
+    if request.method == 'POST':
+        count = request.form['count']
+        comment = request.form['comment']
+        date = request.form['date']
+        date = datetime.strptime(date, '%Y-%m-%d')
+        pushup = Pushups(count=count, comment=comment, date=date)
+        db.session.add(pushup)
+        db.session.commit()
+        return 'Record created successfully!'
+    
 if __name__ == '__main__':
     app.run(debug=True)
