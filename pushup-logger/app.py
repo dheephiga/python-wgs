@@ -117,6 +117,14 @@ def add_workouts():
         db.session.add(pushup)
         db.session.commit()
         return 'Record created successfully!'
+
+@app.route('/edit-pushup')
+def edit_pushup():
+    pass
+
+@app.route('/delete-pushup')
+def delete_pushup():
+    pass
     
 if __name__ == '__main__':
     app.run(debug=True)
