@@ -7,7 +7,7 @@
     {% if session.logged_in %}
     <h1>Welcome, {{ session.email }}</h1>
     <p>You are logged in!</p>
-    <a href="/logout" class="btn btn-danger">Logout</a>
+    <a href="{{ url_for('logout' ) }}" class="btn btn-sm btn-outline btn-danger me-2">Logout</a>
     {% else %}
     <h1>Login Required</h1>
     <p>Please <a href="/login">login</a> to access your information.</p>

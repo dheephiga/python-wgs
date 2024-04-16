@@ -8,7 +8,7 @@ app.secret_key = 'bivdahifbeiHVWIRBIRBI'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  
 db = SQLAlchemy(app)
 
-#
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), nullable=False)
@@ -24,15 +24,18 @@ class User(db.Model):
 with app.app_context():
     db.create_all()
 
+pushups = []
+
 @app.route('/')
 @app.route('/home')
 def home():
     username = ""
     if 'user_id' in session:
         user = User.query.get(session['user_id'])
+    
         if user:
             username = user.username
-    return render_template('home.html', username=username)
+    return render_template('home.html', username=username, session=session)
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -80,6 +83,10 @@ def login():
 def logout():
     session.pop('user_id', None)
     return redirect(url_for('home'))
+
+@app.route('/show-workouts')
+def show_workouts():
+    pass
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -11,6 +11,7 @@ def home():
         logged_in = session['logged_in']
     else:
         logged_in = False
+    
     return render_template('home.html', logged_in=logged_in)
 
 @app.route('/login', methods=['GET', 'POST'])

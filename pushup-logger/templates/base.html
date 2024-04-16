@@ -14,12 +14,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <button class="btn btn-sm btn-outline-secondary" type="button">All Workouts</button>
+                    <a href="{{url_for('show_workouts')}}" class="btn btn-sm btn-outline-secondary" type="button" > Workouts</a>
                 </li>
-                <li class="nav-item">
-                    <button class="btn btn-sm btn-outline-secondary" type="button">Account</button>
-                </li>
+                
             </ul>
+            
             <a href="{{url_for('signup')}}" class="btn btn-sm btn-outline-primary me-2" type="button">Signup</a>
             <a href="{{url_for('login')}}" class="btn btn-sm btn-outline-primary" type="button">Login</a>
         </div>
