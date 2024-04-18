@@ -37,8 +37,10 @@ class Pushups(Base):
     def __repr__(self):
         return f"Pushups(id={self.id}, count={self.count}, comment='{self.comment}', date={self.date})"
     
-with app.app_context():
-    db.create_all()
+
+    with app.app_context():
+        db.create_all()
+
 
 @app.route('/')
 @app.route('/home')
@@ -105,9 +107,6 @@ def show_workouts():
 
 @app.route('/add-workout',methods=['GET','POST'])
 def add_workouts():
-    if request.method == 'GET':
-        return render_template('workout.html')
-    
     if request.method == 'POST':
         count = request.form['count']
         comment = request.form['comment']
@@ -116,15 +115,34 @@ def add_workouts():
         pushup = Pushups(count=count, comment=comment, date=date)
         db.session.add(pushup)
         db.session.commit()
-        return 'Record created successfully!'
+        return render_template('dashboard.html')
+    
+    else:
+        return render_template('workout.html')
+    
 
-@app.route('/edit-pushup')
-def edit_pushup():
-    pass
-
-@app.route('/delete-pushup')
-def delete_pushup():
-    pass
+@app.route('/edit-pushup/<int:id>', methods =['GET','POST'])
+def edit_pushup(id):
+    pushup = Pushups.query.get_or_404(id)
+    if request.method == 'POST':
+        pushup.count = request.form['count']
+        pushup.comment = request.form['comment']
+        pushup.date = request.form['date']
+        pushup.date = datetime.strptime(pushup.date, '%Y-%m-%d')
+        db.session.commit()
+        return render_template('dashboard.html')
+    else:
+        return render_template('edit.html',pushup=pushup)
+    
+    
+@app.route('/delete-pushup/<int:id>',methods=['POST'])  
+def delete_pushup(id):
+    pushup = Pushups.query.get_or_404(id)
+    db.session.delete(pushup)
+    db.session.commit()
+    
+    return render_template("dashboard.html")
+    
     
 if __name__ == '__main__':
     app.run(debug=True)

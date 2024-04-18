@@ -1,0 +1,52 @@
+{%extends 'base.html'%} 
+{%block title%} Edit Workout {%endblock%} 
+{%block content%}
+<div class="container">
+  <form method="post" action="{{url_for('edit_pushup', id=pushup.id)}}">
+    <div class="mb-3 row">
+      <label for="count" class="col-4 col-form-label">Count</label>
+      <div class="col-8">
+        <input
+          type="number"
+          class="form-control"
+          name="count"
+          placeholder="count"
+          value = "{{pushup.count}}"
+        />
+
+      </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="date" class="col-4 col-form-label">Date</label>
+        <div class="col-8">
+          <input
+            type="date"
+            class="form-control"
+            name="date"
+            value = "{{pushup.date}}"
+          />
+          
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="comment" class="col-4 col-form-label">Comment</label>
+        <div class="col-8">
+          <input
+            type="text"
+            class="form-control"
+            name="comment"
+            value = "{{pushup.comment}}"
+          />
+          
+        </div>
+      </div>
+    
+    <div class="mb-3 row">
+      <div class="offset-sm-4 col-sm-8">
+        <button type="submit" class="btn btn-primary">Add</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+{%endblock%}
