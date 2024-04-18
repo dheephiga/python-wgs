@@ -29,6 +29,9 @@ Base.metadata.create_all(bind=engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-person = Person(12321, 'mike', 'smith', 'm', 33)
-session.add(person)
-session.commit()
+# person = Person(12321, 'mike', 'smith', 'm', 33)
+# session.add(person)
+# session.commit()
+
+result = session.query(Person).all()
+print(result)
