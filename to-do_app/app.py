@@ -14,13 +14,25 @@ def add():
     todos.append({'todo':todo, 'done':False})
     return redirect(url_for('index'))
 
+@app.route('/edit/<int:index>',methods=['GET','POST'])
 def edit(index):
     todo = todos[index]
     if request.method == 'POST':
-        todo['todo'] = request.formt['todo']
+        todo['todo'] = request.form['todo']
         return redirect(url_for('index'))
     else:
-        render_template('edit.html')
+        return render_template('edit.html',todo=todo,index=index)
+
+@app.route('/check/<int:index>')
+def check(index):
+    todos[index]['done'] = not todos[index]['done']
+    return redirect(url_for('index'))
+
+@app.route('/delete/<int:index>')
+def delete(index):
+    del todos[index]
+    return redirect(url_for('index'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)

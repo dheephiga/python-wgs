@@ -18,11 +18,22 @@
     <ul>
         {%for todo in todos%}
         <li>
-            {{todo ['todo']}}
+            <input type="checkbox" name="done" {%if todo['done']%} checked {%endif%} disabled onchange="this.form.submit()">
+
+            <span {% if todo['done'] %} style="text-decoration: line-through;" {%endif%}> {{ todo ['todo'] }} </span> 
+            
+            <a href="{{ url_for('check', index=loop.index0) }}">Check</a>
+            <a href="{{ url_for('edit',index=loop.index0 ) }}">Edit</a>
+            <a href="{{ url_for('delete', index=loop.index0 ) }}">Delete</a>
+
         </li>
         {%endfor%}
     </ul>
+        <form action="{{ url_for('add' ) }}" method="post">
+            <input type="text" name="todo" id="">
+            <button type="submit">Add</button>
 
+        </form>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
     crossorigin="anonymous"
