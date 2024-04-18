@@ -1,18 +1,16 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, Text, Date, String
-from sqlalchemy.orm import declarative_base 
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = 'bivdahifbeiHVWIRBIRBI'  
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user.db'  
 db = SQLAlchemy(app)
-   
-Base = declarative_base()
 
-class User(Base):
+
+class Users(db.Model):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
@@ -24,9 +22,9 @@ class User(Base):
     password = Column(String(128), nullable=False)  
     
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}')"
+        return f"Users('{self.username}', '{self.email}')"
     
-class Pushups(Base):
+class Pushupss(db.Model):
     __tablename__ = 'pushups'
 
     id = Column(Integer, primary_key=True)
@@ -35,11 +33,11 @@ class Pushups(Base):
     date = Column(Date, nullable=False)
 
     def __repr__(self):
-        return f"Pushups(id={self.id}, count={self.count}, comment='{self.comment}', date={self.date})"
+        return f"Pushupss(id={self.id}, count={self.count}, comment='{self.comment}', date={self.date})"
     
 
-    with app.app_context():
-        db.create_all()
+# with app.app_context():
+#     db.create_all()
 
 
 @app.route('/')
@@ -47,7 +45,7 @@ class Pushups(Base):
 def home():
     username = ""
     if 'user_id' in session:
-        user = User.query.get(session['user_id'])
+        user = Users.query.get(session['user_id'])
     
         if user:
             username = user.username
@@ -64,7 +62,7 @@ def signup():
         password = request.form['password']
         confirm_password = request.form['confirmPassword']
 
-        existing_user = User.query.filter_by(username=username).first() or User.query.filter_by(email=email).first()
+        existing_user = Users.query.filter_by(username=username).first() or Users.query.filter_by(email=email).first()
         if existing_user:
             return 'Username or email already exists!'
 
@@ -73,7 +71,7 @@ def signup():
 
         hashed_password = generate_password_hash(password)
 
-        new_user = User(name=name, gender=gender, age=age, username=username, email=email, password=hashed_password)
+        new_user = Users(name=name, gender=gender, age=age, username=username, email=email, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
         return 'User created successfully!'
@@ -86,7 +84,7 @@ def login():
         email = request.form['email']
         password = request.form['password']
 
-        user = User.query.filter_by(email=email).first()
+        user = Users.query.filter_by(email=email).first()
         if user and check_password_hash(user.password, password):
             session['user_id'] = user.id
             return redirect(url_for('home'))
@@ -102,7 +100,7 @@ def logout():
 
 @app.route('/show-workouts')
 def show_workouts():
-    pushup_data = db.session.query(Pushups).all()
+    pushup_data = db.session.query(Pushupss).all()
     return render_template('dashboard.html',pushup_data=pushup_data)
 
 @app.route('/add-workout',methods=['GET','POST'])
@@ -112,7 +110,7 @@ def add_workouts():
         comment = request.form['comment']
         date = request.form['date']
         date = datetime.strptime(date, '%Y-%m-%d')
-        pushup = Pushups(count=count, comment=comment, date=date)
+        pushup = Pushupss(count=count, comment=comment, date=date)
         db.session.add(pushup)
         db.session.commit()
         return render_template('dashboard.html')
@@ -123,7 +121,7 @@ def add_workouts():
 
 @app.route('/edit-pushup/<int:id>', methods =['GET','POST'])
 def edit_pushup(id):
-    pushup = Pushups.query.get_or_404(id)
+    pushup = Pushupss.query.get_or_404(id)
     if request.method == 'POST':
         pushup.count = request.form['count']
         pushup.comment = request.form['comment']
@@ -135,9 +133,9 @@ def edit_pushup(id):
         return render_template('edit.html',pushup=pushup)
     
     
-@app.route('/delete-pushup/<int:id>',methods=['POST'])  
+@app.route('/delete-pushup/<int:id>',methods=['POST','GET'])  
 def delete_pushup(id):
-    pushup = Pushups.query.get_or_404(id)
+    pushup = Pushupss.query.get_or_404(id)
     db.session.delete(pushup)
     db.session.commit()
     
@@ -145,4 +143,6 @@ def delete_pushup(id):
     
     
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
