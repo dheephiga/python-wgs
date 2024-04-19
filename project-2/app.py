@@ -14,7 +14,7 @@ class Users(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(40), nullable = False)
     email =db.Column(db.String(20), nullable = False, unique=True)
-    date_added =db.Column(db.DateTime, default=datetime.time)
+    date_added =db.Column(db.DateTime, default=datetime.now)
 
     def __repr__(self):
         return '<Name %r> %self.name'
@@ -22,13 +22,33 @@ class Users(db.Model):
 with app.app_context():
     db.create_all() 
 
-class NameForm(FlaskForm):
-    name = StringField("What's your name",validators=[DataRequired()])
+class UserForm(FlaskForm):
+    name = StringField("Name",validators=[DataRequired()])
+    email = StringField("Email",validators=[DataRequired()])
     submit = SubmitField("Submit")
     
 class NameForm(FlaskForm):
     name = StringField("What's your name",validators=[DataRequired()])
     submit = SubmitField("Submit")
+
+@app.route('/user/add',methods=['GET','POST'])
+def add_user():
+    name = None
+    form = UserForm()
+    
+    if form.validate_on_submit():
+        user = Users.query.filter_by(email=form.email.data).first()
+        if user is None:
+            user = Users(name=form.name.data, email=form.email.data)
+            db.session.add(user)
+            db.session.commit()
+        name = form.name.data
+        form.name.data = ""
+        form.email.data = ""
+        flash("User added succesfully"),
+    our_users = Users.query.order_by(Users.date_added)
+    return render_template('add_user.html',form=form,name = name, our_users=our_users)
+
 @app.route('/')
 def index():
     firstname = 'John'
