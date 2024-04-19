@@ -1,4 +1,4 @@
-from flask import Flask,render_template, flash
+from flask import Flask,render_template, flash, request
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
@@ -7,7 +7,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///users.db"
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:root@localhost/our_users"
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:root@localhost/our_users"
 app.secret_key = 'secret key'
 db = SQLAlchemy(app)
 
@@ -20,9 +20,6 @@ class Users(db.Model):
     def __repr__(self):
         return '<Name %r> %self.name'
     
-with app.app_context():
-    db.create_all() 
-
 class UserForm(FlaskForm):
     name = StringField("Name",validators=[DataRequired()])
     email = StringField("Email",validators=[DataRequired()])
@@ -31,7 +28,10 @@ class UserForm(FlaskForm):
 class NameForm(FlaskForm):
     name = StringField("What's your name",validators=[DataRequired()])
     submit = SubmitField("Submit")
-
+    
+with app.app_context():
+    db.create_all()
+    
 @app.route('/user/add',methods=['GET','POST'])
 def add_user():
     name = None
@@ -50,6 +50,27 @@ def add_user():
     our_users = Users.query.order_by(Users.date_added)
     return render_template('add_user.html',form=form,name = name, our_users=our_users)
 
+@app.route('/update/<int:id>',methods=['GET','POST'])
+def update(id):
+    form = UserForm()
+    name_to_update = Users.query.get_or_404(id)
+    
+    if request.method == 'POST':
+        name_to_update = request.form['name']
+        email_to_update = request.form['email']
+        
+        try:
+            db.session.commit()
+            flash('User updated sucessfully')
+            return render_template('update.html',form=form,name_to_update=name_to_update)
+        except:
+            flash('Error, try again')
+            return render_template('update.html',form=form,name_to_update=name_to_update)
+            
+    else:
+        return render_template('update.html',form=form,name_to_update=name_to_update)
+        
+    
 @app.route('/')
 def index():
     firstname = 'John'
