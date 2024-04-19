@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
+from flask_login import current_user
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 
 app = Flask(__name__)
@@ -15,7 +16,6 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
 
-# Define the Profile model
 class Profile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
@@ -27,21 +27,26 @@ class Profile(db.Model):
 
     user = db.relationship('User', backref=db.backref('profiles', lazy=True))
 
-# Create the database tables
-with app.app_context():
-    db.create_all()
+# # Create the database tables
+# with app.app_context():
+#     db.create_all()
 
 # Flask-Login configuration
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+
 # Routes
 @app.route('/')
 @login_required
 def index():
-    profiles = Profile.query.filter_by(user_id=current_user.id).all()
-    return render_template('index.html', profiles=profiles)
+    if current_user.is_authenticated:
+        profiles = Profile.query.filter_by(user_id=current_user.id).all()
+        return render_template('index.html', profiles=profiles)
+    else:
+        flash('Please log in to view profiles.', 'info')
+        return redirect(url_for('login'))
 
 @app.route('/profile/<int:id>')
 def profile(id):

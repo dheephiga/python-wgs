@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>Profiles</h1>
+    {% if profiles %}
     <ul>
         {% for profile in profiles %}
         <li>
@@ -15,5 +16,8 @@
         </li>
         {% endfor %}
     </ul>
+    {% else %}
+    <p>No profiles found.</p>
+    {% endif %}
 </body>
 </html>
