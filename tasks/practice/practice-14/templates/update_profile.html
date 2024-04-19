@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+</head>
+<body>
+    <h1>Update Profile</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div>{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form action="{{ url_for('update_profile', id=profile.id) }}" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{ profile.name }}" required><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="{{ profile.email }}" required><br>
+        <label for="status">Status:</label>
+        <input type="text" id="status" name="status" value="{{ profile.status }}"><br>
+        <label for="attachments">Attachments:</label>
+        <input type="text" id="attachments" name="attachments" value="{{ profile.attachments }}"><br>
+        <button type="submit">Update Profile</button>
+    </form>
+</body>
+</html>
