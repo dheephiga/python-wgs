@@ -2,10 +2,30 @@ from flask import Flask,render_template, flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///users.db"
 app.secret_key = 'secret key'
+db = SQLAlchemy(app)
 
+class Users(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(40), nullable = False)
+    email =db.Column(db.String(20), nullable = False, unique=True)
+    date_added =db.Column(db.DateTime, default=datetime.time)
+
+    def __repr__(self):
+        return '<Name %r> %self.name'
+    
+with app.app_context():
+    db.create_all() 
+
+class NameForm(FlaskForm):
+    name = StringField("What's your name",validators=[DataRequired()])
+    submit = SubmitField("Submit")
+    
 class NameForm(FlaskForm):
     name = StringField("What's your name",validators=[DataRequired()])
     submit = SubmitField("Submit")
