@@ -12,6 +12,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:root@localhost/our
 app.secret_key = 'secret key'
 db = SQLAlchemy(app)
 migrate = Migrate(app,db)
+
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(40), nullable = False)
