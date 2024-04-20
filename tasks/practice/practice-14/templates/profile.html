@@ -3,13 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ profile.name }}</title>
+    <title>Profiles</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>{{ profile.name }}</h1>
-    <p>Email: {{ profile.email }}</p>
-    <p>Status: {{ profile.status }}</p>
-    <p>Attachments: {{ profile.attachments }}</p>
-    <p>Views: {{ profile.views }}</p>
+    <div class="container">
+        <h1 class="mt-5">All Profiles</h1>
+        <div class="mt-3">
+            <a href="{{ url_for('login') }}" class="btn btn-primary mr-2">Login</a>
+            <a href="{{ url_for('signup') }}" class="btn btn-primary mr-2">Sign Up</a>
+            <a href="{{ url_for('create_profile') }}" class="btn btn-primary mr-2">Add Profile</a>
+        </div>
+        <div class="row mt-3">
+            {% for profile in profiles %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ profile.name }}</h5>
+                        <p class="card-text"><strong>Email:</strong> {{ profile.email }}</p>
+                        <p class="card-text"><strong>Status:</strong> {{ profile.status }}</p>
+                        <p class="card-text"><strong>Attachments:</strong> {{ profile.attachments }}</p>
+                        <p class="card-text"><strong>Views:</strong> {{ profile.views }}</p>
+                        <a href="{{ url_for('profile', id=profile.id) }}" class="btn btn-primary">View Profile</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

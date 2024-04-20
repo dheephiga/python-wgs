@@ -4,20 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profiles</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <style>
+        /* Add custom styles here */
+    </style>
 </head>
 <body>
-    <h1>Profiles</h1>
-    {% if profiles %}
-    <ul>
-        {% for profile in profiles %}
-        <li>
-            <a href="{{ url_for('profile', id=profile.id) }}">{{ profile.name }}</a>
-            ({{ profile.views }} views)
-        </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p>No profiles found.</p>
-    {% endif %}
+    <div class="container">
+        <h1 class="mt-5">Profiles</h1>
+        <div class="mt-3">
+            <a href="{{ url_for('login') }}" class="btn btn-primary mr-2">Login</a>
+            <a href="{{ url_for('signup') }}" class="btn btn-primary mr-2">Sign Up</a>
+            <a href="{{ url_for('create_profile') }}" class="btn btn-primary mr-2">Add Profile</a>
+        </div>
+        {% if profiles %}
+        <ul class="list-group mt-3">
+            {% for profile in profiles %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="{{ url_for('profile', id=profile.id) }}">{{ profile.name }}</a>
+                <span class="badge badge-primary badge-pill">{{ profile.views }} views</span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="mt-3">No profiles found.</p>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

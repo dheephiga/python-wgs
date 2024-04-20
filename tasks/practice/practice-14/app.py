@@ -37,25 +37,25 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-# Routes
 @app.route('/')
 @login_required
 def index():
-    if current_user.is_authenticated:
-        profiles = Profile.query.filter_by(user_id=current_user.id).all()
-        return render_template('index.html', profiles=profiles)
-    else:
-        flash('Please log in to view profiles.', 'info')
-        return redirect(url_for('login'))
+    profiles = Profile.query.filter_by(user_id=current_user.id).all()
+    return render_template('index.html', profiles=profiles)
 
 @app.route('/profile/<int:id>')
 def profile(id):
     profile = Profile.query.get_or_404(id)
-    profile.views += 1
-    db.session.commit()
-    return render_template('profile.html', profile=profile)
+    if profile.user_id == current_user.id:
+        profile.views += 1
+        db.session.commit()
+        return render_template('profile.html', profile=profile)
+    else:
+        flash('You are not authorized to view this profile.', 'error')
+        return redirect(url_for('index'))
 
 @app.route('/create_profile', methods=['GET', 'POST'])
+@login_required
 def create_profile():
     if request.method == 'POST':
         name = request.form['name']
@@ -63,7 +63,7 @@ def create_profile():
         status = request.form['status']
         attachments = request.form['attachments']
 
-        profile = Profile(name=name, email=email, status=status, attachments=attachments)
+        profile = Profile(name=name, email=email, status=status, attachments=attachments, user_id=current_user.id)
         db.session.add(profile)
         db.session.commit()
         flash('Profile created successfully!', 'success')
@@ -72,18 +72,24 @@ def create_profile():
     return render_template('create_profile.html')
 
 @app.route('/update_profile/<int:id>', methods=['GET', 'POST'])
+@login_required
 def update_profile(id):
     profile = Profile.query.get_or_404(id)
-    if request.method == 'POST':
-        profile.name = request.form['name']
-        profile.email = request.form['email']
-        profile.status = request.form['status']
-        profile.attachments = request.form['attachments']
-        db.session.commit()
-        flash('Profile updated successfully!', 'success')
+    if profile.user_id == current_user.id:
+        if request.method == 'POST':
+            profile.name = request.form['name']
+            profile.email = request.form['email']
+            profile.status = request.form['status']
+            profile.attachments = request.form['attachments']
+            db.session.commit()
+            flash('Profile updated successfully!', 'success')
+            return redirect(url_for('index'))
+
+        return render_template('update_profile.html', profile=profile)
+    else:
+        flash('You are not authorized to update this profile.', 'error')
         return redirect(url_for('index'))
 
-    return render_template('update_profile.html', profile=profile)
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -117,5 +123,6 @@ def signup():
 def logout():
     logout_user()
     return redirect(url_for('login'))
+    
 if __name__ == '__main__':
     app.run(debug=True)
