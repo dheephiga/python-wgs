@@ -3,22 +3,24 @@ from flask_wtf import FlaskForm
 from wtforms import TextAreaField, SubmitField
 from wtforms.validators import InputRequired, ValidationError
 import numpy as np
+import re
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key_here'
 
+def validate_numbers(form, field):
+        try:
+            numbers = [float(x) for x in re.split(r',|\s+', field.data)]
+        except ValueError:
+            raise ValidationError('Please enter valid numbers')
+        
 class InputForm(FlaskForm):
     numbers = TextAreaField('Numbers', validators=[
-        InputRequired(message='Please enter numbers'),
+        InputRequired(message='Please enter numbers'),validate_numbers
     ])
     submit = SubmitField('Calculate')
 
-    def validate_numbers(form, field):
-        try:
-            # Split the input by any whitespace character and convert each part to float
-            numbers = [float(x) for x in field.data.split()]
-        except ValueError:
-            raise ValidationError('Please enter valid numbers')
+    
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
