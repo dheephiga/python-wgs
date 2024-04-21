@@ -1,77 +1,76 @@
 {% extends 'base.html' %} 
-{%block title%} Home {%endblock%}
+{% block title %} Home {% endblock %}
 {% block content %}
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Add Recipe
+    Add Recipe
 </button>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add New Recipe</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <div class="modal-body">
-        <form action="{{ url_for('add_recipe' ) }}" method="post">
-          <div class="mb-3">
-            <label for="recipeName" class="form-label">Recipe Name</label>
-            <input type="text" id="recipeName" name="name" class="form-control" />
-          </div>
-
-          <div class="row mb-3">
-            <div class="col">
-              <label for="prepTime" class="form-label">Preparation Time (in mins)</label>
-              <input type="number" id="prepTime" name="prep_time" class="form-control" />
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Recipe</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="col">
-              <label for="cookTime" class="form-label">Cook Time (in mins)</label>
-              <input type="number" id="cookTime" name="cook_time" class="form-control" />
+
+            <div class="modal-body">
+                <form action="{{ url_for('add_recipe') }}" method="post">
+                    <div class="mb-3">
+                        <label for="recipeName" class="form-label">Recipe Name</label>
+                        <input type="text" id="recipeName" name="name" class="form-control" />
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="prepTime" class="form-label">Preparation Time (in mins)</label>
+                            <input type="number" id="prepTime" name="prep_time" class="form-control" />
+                        </div>
+                        <div class="col">
+                            <label for="cookTime" class="form-label">Cook Time (in mins)</label>
+                            <input type="number" id="cookTime" name="cook_time" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cuisine" class="form-label">Cuisine:</label>
+                        <select id="cuisine" name="cuisine" class="form-select">
+                            {% for cuisine in cuisines %}
+                            <option value="{{ cuisine }}">{{ cuisine }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="ingredients" class="form-label">Ingredients:</label>
+                        <textarea id="ingredients" name="ingredients" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="instructions" class="form-label">Cooking Instructions:</label>
+                        <textarea id="instructions" name="instructions" class="form-control" rows="5"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="cuisine" class="form-label">Cuisine:</label>
-            <select id="cuisine" name="cuisine" class="form-select">
-              {% for cuisine in cuisines %}
-              <option value="{{ cuisine }}">{{ cuisine }}</option>
-              {% endfor %}
-            </select>
-          </div>
-
-          <div class="mb-3">
-            <label for="ingredients" class="form-label">Ingredients:</label>
-            <textarea id="ingredients" name="ingredients" class="form-control" rows="3"></textarea>
-          </div>
-
-          <div class="mb-3">
-            <label for="instructions" class="form-label">Cooking Instructions:</label>
-            <textarea id="instructions" name="instructions" class="form-control" rows="5"></textarea>
-          </div>
-
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-      </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <br />
 <br />
-{% for name,recipe in my_recipes.items() %}
+{% for name, recipe in my_recipes.items() %}
 <div class="container-fluid">
-  <div class="card" style="width: 15rem">
-    <div class="card-header text-center">
-      <a href="{{url_for('view_recipe',name=name)}}">{{ name }} </a> 
-      <span class="card-subtitle badge rounded-pill text-bg-primary">{{recipe.cuisine}}</span>
-    </div>
+    <div class="card" style="width: 15rem">
+        <div class="card-header text-center bg-dark text-light">
+            <a href="{{ url_for('view_recipe', name=name) }}" class="text-light">{{ name }}</a>
+            <span class="card-subtitle badge rounded-pill border border-secondary text-dark">{{ recipe.cuisine }}</span>
+        </div>
 
-    <div class="card-body">
-      <p class="card-text">{{ recipe.total_time }}</p>
-
-      
+        <div class="card-body">
+            <p class="card-text">{{ recipe.total_time }}</p>
+        </div>
     </div>
-  </div>
 </div>
-{%endfor%} {% endblock %}
+{% endfor %}
+{% endblock %}

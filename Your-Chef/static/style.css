@@ -1,0 +1,55 @@
+/* Body background color */
+body {
+    background-color: #2F4F4F;
+  }
+  
+  /* Primary button color */
+  .btn-primary {
+    background-color: #008B8B;
+    border-color: #008B8B;
+  }
+  
+  /* Text color */
+  body, .text-dark {
+    color: #D3D3D3;
+  }
+  
+  /* Secondary button color */
+  .btn-secondary {
+    background-color: #C0C0C0;
+    border-color: #C0C0C0;
+  }
+  
+  /* Link hover color */
+  a:hover {
+    color: #00CED1;
+  }
+  
+  /* Card background color */
+  .card {
+    background-color: #383838;
+    border-color: #383838;
+  }
+  
+  /* Card header background color */
+  .card-header {
+    background-color: #282828;
+    border-color: #282828;
+  }
+
+  .modal-header {
+    background-color: #282828;
+    border-color: #282828;
+}
+
+/* Modal body background color */
+.modal-body {
+    background-color: #383838;
+    color: #D3D3D3; /* Text color for modal body */
+}
+
+/* Modal footer background color */
+.modal-footer {
+    background-color: #282828;
+    border-top: none; /* Remove border from modal footer */
+}
