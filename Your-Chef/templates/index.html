@@ -1,4 +1,5 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
+{%block title%} Home {%endblock%}
 {% block content %}
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
   Add Recipe
@@ -13,7 +14,7 @@
       </div>
 
       <div class="modal-body">
-        <form>
+        <form action="{{ url_for('add_recipe' ) }}" method="post">
           <div class="mb-3">
             <label for="recipeName" class="form-label">Recipe Name</label>
             <input type="text" id="recipeName" name="name" class="form-control" />
@@ -52,13 +53,25 @@
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
     </div>
   </div>
 </div>
 
-{% endblock %}
+<br />
+<br />
+{% for name,recipe in my_recipes.items() %}
+<div class="container-fluid">
+  <div class="card" style="width: 15rem">
+    <div class="card-header text-center">
+      <a href="{{url_for('view_recipe',name=name)}}">{{ name }} </a> 
+      <span class="card-subtitle badge rounded-pill text-bg-primary">{{recipe.cuisine}}</span>
+    </div>
+
+    <div class="card-body">
+      <p class="card-text">{{ recipe.total_time }}</p>
+
+      
+    </div>
+  </div>
+</div>
+{%endfor%} {% endblock %}

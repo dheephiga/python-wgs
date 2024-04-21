@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block title %} {{ recipe.name }} {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="mb-0">
+                    <a href="{{ url_for('index') }}" class="text-white"><i class="fas fa-chevron-left"></i></a>
+                    {{ recipe.name }} <i class="fas fa-utensils"></i>
+                    <span class="badge rounded-pill text-outline-secondary border border-white fs-6">{{ recipe.cuisine }}</span>
+                </h3>
+                <div>
+                    <a type="button" class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#updateModal">
+                        <i class="fas fa-pencil-alt"></i> Edit
+                    </a>
+                    <a type="button" href="{{ url_for('delete_recipe', name=recipe.name) }}" class="btn btn-outline-danger btn-sm">
+                        <i class="fas fa-trash-alt"></i> Delete
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card-body">
+            <p class="card-text">
+                <strong>Cuisine:</strong> {{ recipe.cuisine }}<br>
+                <strong>Preparation Time:</strong> {{ recipe.prep_time }} mins<br>
+                <strong>Cook Time:</strong> {{ recipe.cook_time }} mins<br>
+                <strong>Total Time:</strong> {{ recipe.total_time }} mins<br>
+                <strong>Ingredients:</strong><br>
+                <ul>
+                    {% for ingredient in recipe.ingredients %}
+                    <li>{{ ingredient }}</li>
+                    {% endfor %}
+                </ul>
+                <strong>Instructions:</strong><br>
+                <ol>
+                    {% for instruction in recipe.instructions %}
+                    <li>{{ instruction }}</li>
+                    {% endfor %}
+                </ol>
+            </p>
+        </div>
+
+        <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateModalLabel">Update Recipe</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ url_for('update_recipe', name=recipe.name ) }}" method="post">
+                            <div class="mb-3">
+                                <label for="recipeName" class="form-label">Recipe Name</label>
+                                <input type="text" id="recipeName" name="name" class="form-control"
+                                    value="{{ recipe.name }}" />
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="prepTime" class="form-label">Preparation Time (in mins)</label>
+                                    <input type="number" id="prepTime" name="prep_time" class="form-control"
+                                        value="{{ recipe.prep_time }}" />
+                                </div>
+                                <div class="col">
+                                    <label for="cookTime" class="form-label">Cook Time (in mins)</label>
+                                    <input type="number" id="cookTime" name="cook_time" class="form-control"
+                                        value="{{ recipe.cook_time }}" />
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="cuisine" class="form-label">Cuisine:</label>
+                                <select id="cuisine" name="cuisine" class="form-select">
+                                    {% for cuisine in cuisines %}
+                                    {% if cuisine == recipe.cuisine %}
+                                    <option value="{{ cuisine }}" selected>{{ cuisine }}</option>
+                                    {% else %}
+                                    <option value="{{ cuisine }}">{{ cuisine }}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ingredients" class="form-label">Ingredients:</label>
+                                <textarea id="ingredients" name="ingredients" class="form-control"
+                                    rows="3">{{ recipe.ingredients }}</textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="instructions" class="form-label">Cooking Instructions:</label>
+                                <textarea id="instructions" name="instructions" class="form-control"
+                                    rows="5">{{ recipe.instructions }}</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-dark">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
