@@ -1,55 +1,53 @@
 /* Body background color */
 body {
-    background-color: #2F4F4F;
-  }
-  
-  /* Primary button color */
-  .btn-primary {
-    background-color: #008B8B;
-    border-color: #008B8B;
-  }
-  
-  /* Text color */
-  body, .text-dark {
-    color: #D3D3D3;
-  }
-  
-  /* Secondary button color */
-  .btn-secondary {
-    background-color: #C0C0C0;
-    border-color: #C0C0C0;
-  }
-  
-  /* Link hover color */
-  a:hover {
-    color: #00CED1;
-  }
-  
-  /* Card background color */
-  .card {
-    background-color: #383838;
-    border-color: #383838;
-  }
-  
-  /* Card header background color */
-  .card-header {
-    background-color: #282828;
-    border-color: #282828;
-  }
-
-  .modal-header {
-    background-color: #282828;
-    border-color: #282828;
+    background-color: #F9EFDB;
 }
 
-/* Modal body background color */
-.modal-body {
-    background-color: #383838;
-    color: #D3D3D3; /* Text color for modal body */
+/* Primary button color */
+.btn-primary {
+    background-color: #638889; /* Dark green */
+    border-color: #638889;
+    color: #FFFFFF; /* White text color */
 }
 
-/* Modal footer background color */
-.modal-footer {
-    background-color: #282828;
-    border-top: none; /* Remove border from modal footer */
+/* Text color */
+body, .text-dark {
+    color: #444444; /* Dark gray */
+}
+
+/* Secondary button color */
+.btn-secondary {
+    background-color: #9DBC98; /* Light green */
+    border-color: #9DBC98;
+    color: #444444; /* Dark gray text color */
+}
+
+/* Card background color */
+.card {
+    background-color: #FFFFFF; /* White */
+    border-color: #EAEAEA; /* Light gray */
+}
+
+/* Card header background color */
+.card-header {
+    background-color: #EBD9B4; /* Light brown */
+    border-color: #EBD9B4;
+}
+
+/* Modal background color */
+.modal-content {
+    background-color: #FFFFFF; /* White */
+    color: #444444; /* Dark gray text color */
+}
+
+/* Form input background color */
+.form-control {
+    background-color: #EBD9B4; /* Light brown */
+    color: #444444; /* Dark gray text color */
+}
+
+/* Form select background color */
+.form-select {
+    background-color: #EBD9B4; /* Light brown */
+    color: #444444; /* Dark gray text color */
 }

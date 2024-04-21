@@ -5,14 +5,28 @@
     Add Recipe
 </button>
 
+<!-- Recipe Cards Section -->
+<div class="row mt-4">
+    {% for name, recipe in my_recipes.items() %}
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ name }}</h5>
+                <p class="card-text">Preparation Time: {{ recipe.prep_time }} mins</p>
+                <p class="card-text">Cook Time: {{ recipe.cook_time }} mins</p>
+                <p class="card-text">Cuisine: {{ recipe.cuisine }}</p>
+                <a href="{{ url_for('view_recipe', name=name) }}" class="btn btn-primary">View Recipe</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<!-- End Recipe Cards Section -->
+
+<!-- Add Recipe Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add New Recipe</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
             <div class="modal-body">
                 <form action="{{ url_for('add_recipe') }}" method="post">
                     <div class="mb-3">
@@ -56,21 +70,4 @@
         </div>
     </div>
 </div>
-
-<br />
-<br />
-{% for name, recipe in my_recipes.items() %}
-<div class="container-fluid">
-    <div class="card" style="width: 15rem">
-        <div class="card-header text-center bg-dark text-light">
-            <a href="{{ url_for('view_recipe', name=name) }}" class="text-light">{{ name }}</a>
-            <span class="card-subtitle badge rounded-pill border border-secondary text-dark">{{ recipe.cuisine }}</span>
-        </div>
-
-        <div class="card-body">
-            <p class="card-text">{{ recipe.total_time }}</p>
-        </div>
-    </div>
-</div>
-{% endfor %}
 {% endblock %}
