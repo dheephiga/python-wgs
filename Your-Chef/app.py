@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 
 app = Flask(__name__)
+app.secret_key = "KEY"
 
 class Recipe:
     unique_names = set()
@@ -53,7 +54,9 @@ def add_recipe():
         my_recipes[name] = new_recipe          
         print(type(new_recipe))
         print(my_recipes.items())
-        return 'success'
+        flash(f'Recipe: {name} added successfully', 'success')
+        return redirect(url_for('index'))
+        
     except ValueError as e:
         return str(e)
 
@@ -75,9 +78,11 @@ def update_recipe(name):
             to_update_recipe.prep_time = prep_time
             to_update_recipe.cook_time = cook_time
             to_update_recipe.total_time = total_time
+            flash(f'Recipe: {name} updated successfully', 'success')
             return redirect(url_for('index'))
         else:
-            return 'Recipe not found'
+             flash(f'Recipe: {name} not found', 'error')
+             return redirect(url_for('index'))
     else:
         to_update_recipe = my_recipes.get(name)
         if to_update_recipe:
@@ -88,12 +93,13 @@ def update_recipe(name):
 def view_recipe(name):
     recipe = my_recipes.get(name)
     if recipe:
-        return render_template('recipe.html', recipe=recipe)
+        return render_template('recipe.html', recipe=recipe, cuisines=cuisines)
     else:
         return 'Recipe not found'
 @app.route('/delete/<name>')
 def delete_recipe(name):
     del my_recipes[name]
+    flash(f'Recipe: {name} deleted successfully', 'success')
     return redirect(url_for('index'))
     
 

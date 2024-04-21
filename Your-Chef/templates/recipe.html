@@ -45,7 +45,7 @@
 
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content" style="background-color: #B22222; color: #FFFFFF;">
+                <div class="modal-content">
                     <div class="modal-body">
                         Are you sure you want to delete this recipe?
                     </div>
@@ -59,7 +59,7 @@
         
         <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content" style="background-color: #008B8B; color: #FFFFFF;">
+                <div class="modal-content">
                     <div class="modal-body">
                         <form action="{{ url_for('update_recipe', name=recipe.name ) }}" method="post">
                             <div class="mb-3">

@@ -1,11 +1,12 @@
 {% extends 'base.html' %} 
 {% block title %} Home {% endblock %}
 {% block content %}
+
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Add Recipe
 </button>
 
-<!-- Recipe Cards Section -->
+
 <div class="row mt-4">
     {% for name, recipe in my_recipes.items() %}
     <div class="col-md-4">
@@ -21,9 +22,7 @@
     </div>
     {% endfor %}
 </div>
-<!-- End Recipe Cards Section -->
 
-<!-- Add Recipe Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
