@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{%block title%} Welcome {%endblock%}
+{% block content %}
+
+<div class="container mt-5 d-flex justify-content-center align-items-center">
+    <div class="row">
+       
+        <div class="col-md-6">
+        </div>
+      
+        <div class="col-md-11">
+            <div class="content-column justify-content-center">
+                <h2>Welcome to Your Chef!</h2>
+                <p>Organize and discover recipes from various cuisines.</p>
+                <hr>
+                <div class="text-center">
+                  
+                    <a href="{{ url_for('login' ) }}" class="btn btn-primary btn-lg mr-3">Login</a>
+                   
+                    <a href="{{ url_for('signup' ) }}" class="btn btn-success btn-lg">Signup</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
