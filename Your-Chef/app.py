@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
 
 app = Flask(__name__)
 app.secret_key = "KEY"
@@ -179,9 +179,64 @@ def signup():
 
     return render_template("signup.html")
 
+#rest apis
+@app.route('/api/recipes', methods=['GET'])
+def get_recipes_api():
+    return jsonify(list(my_recipes.values()))
 
+# Get a single recipe by name
+@app.route('/api/recipes/<name>', methods=['GET'])
+def get_recipe_api(name):
+    recipe = my_recipes.get(name)
+    if recipe:
+        return jsonify(recipe)
+    else:
+        return jsonify({"error": "Recipe not found"}), 404
 
+# Create a new recipe
+@app.route('/api/recipes', methods=['POST'])
+def create_recipe_api():
+    data = request.json
+    name = data.get("name")
+    if name in my_recipes:
+        return jsonify({"error": f"Recipe with name '{name}' already exists"}), 400
 
+    my_recipes[name] = {
+        "name": name,
+        "cuisine": data.get("cuisine"),
+        "ingredients": data.get("ingredients"),
+        "instructions": data.get("instructions"),
+        "prep_time": data.get("prep_time"),
+        "cook_time": data.get("cook_time"),
+        "total_time": data.get("total_time")
+    }
+    return jsonify(my_recipes[name]), 201
+
+# Update a recipe by name
+@app.route('/api/recipes/<name>', methods=['PUT'])
+def update_recipe_api(name):
+    recipe = my_recipes.get(name)
+    if recipe:
+        data = request.json
+        recipe['name'] = data.get('name', recipe['name'])
+        recipe['cuisine'] = data.get('cuisine', recipe['cuisine'])
+        recipe['ingredients'] = data.get('ingredients', recipe['ingredients'])
+        recipe['instructions'] = data.get('instructions', recipe['instructions'])
+        recipe['prep_time'] = data.get('prep_time', recipe['prep_time'])
+        recipe['cook_time'] = data.get('cook_time', recipe['cook_time'])
+        recipe['total_time'] = data.get('total_time', recipe['total_time'])
+        return jsonify(recipe)
+    else:
+        return jsonify({"error": "Recipe not found"}), 404
+
+# Delete a recipe by name
+@app.route('/api/recipes/<name>', methods=['DELETE'])
+def delete_recipe_api(name):
+    if name in my_recipes:
+        del my_recipes[name]
+        return jsonify({"message": "Recipe deleted successfully"}), 200
+    else:
+        return jsonify({"error": "Recipe not found"}), 404
 
 if __name__ == "__main__":
     app.run(debug=True)
