@@ -6,10 +6,11 @@ from wtforms.validators import DataRequired, EqualTo, Length
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from werkzeug.security import generate_password_hash,check_password_hash
+from datetime import date
 
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///users.db"
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:root@localhost/our_users"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///users.db"
+#app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:root@localhost/our_users"
 app.secret_key = 'secret key'
 db = SQLAlchemy(app)
 migrate = Migrate(app,db)
@@ -49,7 +50,12 @@ class NameForm(FlaskForm):
     
 with app.app_context():
     db.create_all()
-    
+
+
+#json
+@app.route('/date')
+def get_date():
+    return {"Date": date.today()}   
 @app.route('/user/add',methods=['GET','POST'])
 def add_user():
     name = None
