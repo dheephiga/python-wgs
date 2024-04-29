@@ -55,7 +55,9 @@ with app.app_context():
 #json
 @app.route('/date')
 def get_date():
+    favorite_pizza
     return {"Date": date.today()}   
+
 @app.route('/user/add',methods=['GET','POST'])
 def add_user():
     name = None
