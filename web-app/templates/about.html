@@ -54,6 +54,20 @@
        </nav>
        <div class="container">
         <h3>About</h3>
+        <p>
+            <ol>
+            {%for name in names%}
+            {%if name == 'Izzy'%}
+            <li>Izzy nahhh</li>
+
+            {%else%}
+             <li>{{name}}</li>
+            {%endif%}
+           
+           
+            {%endfor%}
+        </ol>
+        </p>
        </div>
         <script
             src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
